@@ -1,0 +1,65 @@
+---
+import { projectAnchor, type NumberedProject } from "../lib/bibliography"
+import { formatPeriod } from "../lib/dates"
+import Entry from "./Entry.astro"
+import Figure from "./Figure.astro"
+
+interface Props {
+	project: NumberedProject
+}
+
+const { project } = Astro.props
+---
+
+<Entry
+	id={projectAnchor(project.id)}
+	title={project.title}
+	aside={formatPeriod(project.period)}
+>
+	<p class="entry-detail">{project.description}</p>
+	<p class="entry-note">
+		{project.technologies.join(", ")}.
+		{
+			project.links?.map((link) => (
+				<>
+					{" "}
+					[<a href={link.href}>{link.label}</a>]
+				</>
+			))
+		}
+	</p>
+	{
+		project.figures.length > 0 && (
+			<div class:list={["figures", { portrait: project.portrait }]}>
+				{project.figures.map((figure) => (
+					<Figure figure={figure} work={project.title} />
+				))}
+			</div>
+		)
+	}
+</Entry>
+
+<style>
+	.figures {
+		display: grid;
+		/* Fixed columns, so every figure of a kind has the same width. */
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		align-items: start;
+		margin-top: 0.75rem;
+	}
+
+	.figures.portrait {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	@media screen and (max-width: 43.999rem) {
+		.figures {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.figures.portrait {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+</style>

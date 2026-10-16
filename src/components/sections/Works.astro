@@ -1,0 +1,60 @@
+---
+import { profile } from "../../data/profile"
+import { numberedGroups } from "../../lib/bibliography"
+import Work from "../Work.astro"
+
+interface Props {
+	number: number
+}
+
+const { number } = Astro.props
+const github = profile.links.find((link) => link.href.includes("github.com"))
+---
+
+{
+	numberedGroups.map((group, index) => (
+		<>
+			<h3 class="subsection">
+				<span class="number">
+					{number}.{index + 1}
+				</span>
+				<span>{group.title}</span>
+			</h3>
+			{group.projects.map((project) => (
+				<Work project={project} />
+			))}
+		</>
+	))
+}
+
+<p class="closing">
+	D’autres travaux sont disponibles sur <a href={github?.href}>GitHub</a>. Une
+	partie des réalisations menées pour des clients est propriétaire et ne peut
+	être présentée ici.
+</p>
+
+<style>
+	.subsection {
+		display: flex;
+		gap: 0.75em;
+		margin-top: 2.25rem;
+		margin-bottom: 1rem;
+		font-size: 1.0625rem;
+		font-style: italic;
+		font-weight: 400;
+	}
+
+	.subsection:first-of-type {
+		margin-top: 0;
+	}
+
+	.number {
+		font-style: normal;
+	}
+
+	.closing {
+		margin-top: 2rem;
+		color: var(--muted);
+		font-size: 0.9rem;
+	}
+</style>

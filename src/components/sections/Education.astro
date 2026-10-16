@@ -1,0 +1,17 @@
+---
+import { education } from "../../data/education"
+import { formatPeriod } from "../../lib/dates"
+import Entry from "../Entry.astro"
+---
+
+{
+	education.map((degree) => (
+		<Entry
+			title={`${degree.degree}, ${degree.field.toLowerCase()}`}
+			aside={formatPeriod(degree.period)}
+			subtitle={`${degree.institution}, ${degree.location}`}
+		>
+			{degree.note && <p class="entry-note">{degree.note}</p>}
+		</Entry>
+	))
+}

@@ -1,0 +1,18 @@
+{
+	"name": "david-vct.github.io",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview"
+	},
+	"dependencies": {
+		"@fontsource-variable/source-serif-4": "^5.3.1",
+		"astro": "^7.4.0"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.10",
+		"typescript": "^6.0.3"
+	}
+}

@@ -1,0 +1,59 @@
+---
+import Masthead from "../components/Masthead.astro"
+import Section from "../components/Section.astro"
+import Education from "../components/sections/Education.astro"
+import Experience from "../components/sections/Experience.astro"
+import Profile from "../components/sections/Profile.astro"
+import Skills from "../components/sections/Skills.astro"
+import Works from "../components/sections/Works.astro"
+import { profile } from "../data/profile"
+import Base from "../layouts/Base.astro"
+import { formatMonthYear } from "../lib/dates"
+
+// Order of this list sets the section numbering.
+const sections = [
+	{ id: "profil", title: "Profil", Content: Profile },
+	{ id: "experience", title: "Expérience professionnelle", Content: Experience },
+	{ id: "formation", title: "Formation", Content: Education },
+	{ id: "travaux", title: "Travaux", Content: Works },
+	{ id: "competences", title: "Compétences", Content: Skills },
+]
+
+const buildDate = new Date()
+---
+
+<Base title={`${profile.name}, curriculum vitae`} description={profile.description}>
+	<main>
+		<Masthead />
+		{
+			sections.map(({ id, title, Content }, index) => (
+				<Section id={id} number={index + 1} title={title}>
+					<Content number={index + 1} />
+				</Section>
+			))
+		}
+		<footer>
+			<p>
+				Dernière mise à jour&nbsp;: {formatMonthYear(buildDate)}.{" "}
+				<a href="https://github.com/david-vct/david-vct.github.io">Sources</a> de
+				cette page.
+			</p>
+		</footer>
+	</main>
+</Base>
+
+<style>
+	footer {
+		margin-top: 3.5rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--rule);
+		color: var(--muted);
+		font-size: 0.875rem;
+	}
+
+	@media print {
+		footer a {
+			display: none;
+		}
+	}
+</style>

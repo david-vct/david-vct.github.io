@@ -1,0 +1,17 @@
+---
+import { profile } from "../../data/profile"
+---
+
+{profile.summary.map((paragraph) => <p>{paragraph}</p>)}
+
+<style>
+	@media (min-width: 40rem) {
+		p {
+			text-align: justify;
+		}
+	}
+
+	p + p {
+		margin-top: 0.75rem;
+	}
+</style>

@@ -1,0 +1,35 @@
+---
+import { skills } from "../../data/skills"
+---
+
+<dl>
+	{
+		skills.map((group) => (
+			<div class="hang">
+				<dt class="in-margin">{group.label}</dt>
+				<dd>{group.items.join(", ")}</dd>
+			</div>
+		))
+	}
+</dl>
+
+<style>
+	div + div {
+		margin-top: 0.3rem;
+	}
+
+	dt {
+		color: var(--muted);
+		font-size: 0.9375rem;
+	}
+
+	dd {
+		margin: 0;
+	}
+
+	@media screen and (max-width: 43.999rem) {
+		div + div {
+			margin-top: 0.5rem;
+		}
+	}
+</style>

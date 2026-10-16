@@ -1,0 +1,39 @@
+---
+import { experience } from "../../data/experience"
+import { cite } from "../../lib/bibliography"
+import { formatPeriod } from "../../lib/dates"
+import Entry from "../Entry.astro"
+---
+
+{
+	experience.map((job) => (
+		<Entry
+			title={job.role}
+			aside={formatPeriod(job.period)}
+			subtitle={[job.organization, job.contract.toLowerCase(), job.location]
+				.filter(Boolean)
+				.join(", ")}
+		>
+			<ul class="dashed entry-detail">
+				{job.items.map((item) => (
+					<li>{item}</li>
+				))}
+			</ul>
+			{job.technologies && (
+				<p class="entry-note">Environnement&nbsp;: {job.technologies.join(", ")}.</p>
+			)}
+			{job.related && (
+				<p class="entry-note">
+					Travaux associés&nbsp;:{" "}
+					{job.related.map(cite).map((citation, index) => (
+						<>
+							{index > 0 && ", "}
+							<a href={citation.href}>{citation.title}</a>
+						</>
+					))}
+					.
+				</p>
+			)}
+		</Entry>
+	))
+}

@@ -1,0 +1,181 @@
+@import "@fontsource-variable/source-serif-4/opsz.css";
+@import "@fontsource-variable/source-serif-4/opsz-italic.css";
+
+:root {
+	color-scheme: light;
+
+	/* Three levels of ink: titles and body text, italic subtitles, then
+	   secondary information (dates, references, notes, captions). */
+	--paper: #fffefb;
+	--ink: #1c1c1a;
+	--ink-soft: #46443f;
+	--muted: #6e6b64;
+	--rule: #d9d5cc;
+	--link: #1e3d8f;
+
+	--font: "Source Serif 4 Variable", "Source Serif Pro", Georgia, serif;
+	--radius: 4px;
+
+	/* Page grid: a text column, with a margin column on its left for dates
+	   and skill labels. Below 44rem the margin column folds
+	   into the text column (the breakpoint is repeated in media queries). */
+	--measure: 38rem;
+	--margin: 10.5rem;
+	--margin-gap: 1.5rem;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--font);
+	font-size: 1.0625rem;
+	line-height: 1.6;
+	font-optical-sizing: auto;
+	font-kerning: normal;
+	text-rendering: optimizeLegibility;
+	hyphens: auto;
+}
+
+main {
+	max-width: calc(var(--margin) + var(--margin-gap) + var(--measure) + 2rem);
+	margin: 0 auto;
+	padding: 4.5rem 1rem 2rem calc(var(--margin) + var(--margin-gap) + 1rem);
+}
+
+/* Hangs an element's `.in-margin` children in the margin column, flushed
+   right against the text. */
+@media (min-width: 44rem), print {
+	.hang {
+		display: grid;
+		grid-template-columns: var(--margin) minmax(0, 1fr);
+		column-gap: var(--margin-gap);
+		align-items: baseline;
+		margin-left: calc(-1 * (var(--margin) + var(--margin-gap)));
+	}
+
+	/* Margin notes stay on one line; if one is longer than the column it
+	   grows leftwards, never into the text. */
+	.hang > .in-margin {
+		grid-column: 1;
+		justify-self: end;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.hang > :not(.in-margin) {
+		grid-column: 2;
+	}
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+	line-height: 1.25;
+	hyphens: manual;
+}
+
+p,
+ul,
+dl {
+	margin: 0;
+}
+
+a {
+	color: var(--link);
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+	text-decoration-color: color-mix(in srgb, var(--link) 35%, transparent);
+}
+
+a:hover {
+	text-decoration-color: currentColor;
+}
+
+a:focus-visible {
+	outline: 1px solid var(--link);
+	outline-offset: 2px;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Lists use the French typographic dash rather than bullets. */
+.dashed {
+	list-style: none;
+	padding: 0;
+}
+
+.dashed > li {
+	position: relative;
+	padding-left: 1.1em;
+}
+
+.dashed > li::before {
+	content: "–";
+	position: absolute;
+	left: 0;
+}
+
+@media screen and (max-width: 43.999rem) {
+	body {
+		font-size: 1rem;
+	}
+
+	main {
+		padding: 2.5rem 1rem 2rem;
+	}
+}
+
+@media print {
+	@page {
+		margin: 1.6cm 1.8cm;
+	}
+
+	:root {
+		--paper: #fff;
+		--ink: #000;
+		--ink-soft: #222;
+		--link: #000;
+	}
+
+	body {
+		font-size: 10.5pt;
+	}
+
+	main {
+		max-width: none;
+		padding: 0 0 0 calc(var(--margin) + var(--margin-gap));
+	}
+
+	a {
+		text-decoration: none;
+	}
+}
+
+/* Body of CV entries (see Entry.astro). */
+.entry-detail {
+	margin-top: 0.4rem;
+}
+
+.entry-note {
+	margin-top: 0.3rem;
+	color: var(--muted);
+	font-size: 0.9rem;
+}

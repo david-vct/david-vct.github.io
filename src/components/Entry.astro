@@ -1,0 +1,63 @@
+---
+// One entry of the CV. Its date hangs in the margin column, facing the
+// title.
+interface Props {
+	title: string
+	aside?: string
+	subtitle?: string
+	id?: string
+}
+
+const { title, aside, subtitle, id } = Astro.props
+---
+
+<article class="entry hang" id={id}>
+	{aside && <span class="aside in-margin">{aside}</span>}
+	<h3 class="title">{title}</h3>
+	{subtitle && <p class="subtitle">{subtitle}</p>}
+	<div class="body"><slot /></div>
+</article>
+
+<style>
+	.entry {
+		scroll-margin-top: 1.5rem;
+	}
+
+	.entry + :global(.entry) {
+		margin-top: 1.5rem;
+	}
+
+	.aside {
+		color: var(--muted);
+		font-size: 0.9375rem;
+		font-variant-numeric: lining-nums tabular-nums;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 1.0625rem;
+		font-weight: 600;
+	}
+
+	.subtitle {
+		color: var(--ink-soft);
+		font-style: italic;
+	}
+
+	/* The date faces the title line. */
+	@media (min-width: 44rem), print {
+		.aside {
+			grid-row: 1;
+		}
+
+		.title {
+			grid-row: 1;
+		}
+	}
+
+	@media print {
+		.entry {
+			break-inside: avoid;
+		}
+	}
+</style>

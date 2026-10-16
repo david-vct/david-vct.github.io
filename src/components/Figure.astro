@@ -1,0 +1,62 @@
+---
+import { Image, getImage } from "astro:assets"
+import type { NumberedFigure } from "../lib/bibliography"
+
+interface Props {
+	figure: NumberedFigure
+	/** Title of the work the figure illustrates, used in the alt text. */
+	work: string
+}
+
+const { figure, work } = Astro.props
+const { image, caption, number } = figure
+
+// Animated GIFs are served as is so they keep their animation.
+const isAnimated = image.format === "gif"
+const full = isAnimated
+	? image
+	: await getImage({ src: image, format: "webp", width: Math.min(image.width, 1920) })
+---
+
+<figure>
+	<a href={full.src} aria-label={`Fig. ${number}, taille réelle`}>
+		<Image
+			src={image}
+			alt={`${work} : ${caption}`}
+			width={isAnimated ? undefined : Math.min(image.width, 720)}
+			widths={isAnimated ? undefined : [360, 720]}
+			sizes="(max-width: 44rem) 50vw, 13rem"
+			format={isAnimated ? "gif" : "webp"}
+		/>
+	</a>
+	<figcaption><span class="label">Fig. {number}.</span> {caption}</figcaption>
+</figure>
+
+<style>
+	figure {
+		margin: 0;
+	}
+
+	a {
+		display: block;
+	}
+
+	img {
+		width: 100%;
+		border: 1px solid var(--rule);
+		border-radius: var(--radius);
+	}
+
+	figcaption {
+		margin-top: 0.35rem;
+		color: var(--muted);
+		font-size: 0.8125rem;
+		line-height: 1.4;
+	}
+
+	.label {
+		color: var(--ink);
+		font-variant-caps: small-caps;
+		font-weight: 600;
+	}
+</style>

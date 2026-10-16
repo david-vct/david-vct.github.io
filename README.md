@@ -8,13 +8,13 @@ Site statique généré avec [Astro](https://astro.build), sans JavaScript côt�
 
 Tout le contenu se trouve dans `src/data/`, séparé du rendu :
 
-| Fichier         | Contenu                                         |
-| --------------- | ----------------------------------------------- |
-| `profile.ts`    | En-tête, coordonnées, paragraphe de profil      |
-| `experience.ts` | Expérience professionnelle                      |
-| `education.ts`  | Formation                                       |
-| `projects.ts`   | Travaux, groupés, avec leurs figures            |
-| `skills.ts`     | Compétences                                     |
+| Fichier         | Contenu                                    |
+| --------------- | ------------------------------------------ |
+| `profile.ts`    | En-tête, coordonnées, paragraphe de profil |
+| `experience.ts` | Expérience professionnelle                 |
+| `education.ts`  | Formation                                  |
+| `projects.ts`   | Travaux, groupés, avec leurs figures       |
+| `skills.ts`     | Compétences                                |
 
 - Les dates s'écrivent `"2023-09"` (mois) ou `"2021"` (année) ; une période sans `end` est en cours. Le formatage en français est fait dans `src/lib/dates.ts`.
 - Les figures sont numérotées automatiquement dans l'ordre de `projects.ts` (`src/lib/bibliography.ts`). Une expérience peut renvoyer à des travaux par leur `id` via `related` ; un identifiant inconnu fait échouer le build.
@@ -32,4 +32,4 @@ npm run preview  # sert le build
 
 ## Déploiement
 
-Chaque push sur `main` déclenche `.github/workflows/deploy.yml`, qui construit et publie le site. Dans les réglages du dépôt, *Settings → Pages → Source* doit être sur **GitHub Actions**.
+Chaque push sur `main` déclenche `.github/workflows/deploy.yml`, qui construit et publie le site. Dans les réglages du dépôt, _Settings → Pages → Source_ doit être sur **GitHub Actions**.
