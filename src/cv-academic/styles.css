@@ -1,27 +1,30 @@
-@import "@fontsource-variable/source-serif-4/opsz.css";
-@import "@fontsource-variable/source-serif-4/opsz-italic.css";
+@import "@fontsource/libertinus-serif/400.css";
+@import "@fontsource/libertinus-serif/400-italic.css";
+@import "@fontsource/libertinus-serif/700.css";
+@import "@fontsource/libertinus-serif/700-italic.css";
 
 :root {
 	color-scheme: light;
 
-	/* Three levels of ink: titles and body text, italic subtitles, then
-	   secondary information (dates, references, notes, captions). */
-	--paper: #fffefb;
-	--ink: #1c1c1a;
-	--ink-soft: #46443f;
+	/* All text is black; only section titles and links are coloured.
+	   `--muted` is kept for what sits outside the CV itself (captions,
+	   footer). */
+	--paper: #fff;
+	--ink: #000;
+	--accent: #96322d;
+	--link: #335c7a;
 	--muted: #6e6b64;
 	--rule: #d9d5cc;
-	--link: #1e3d8f;
 
-	--font: "Source Serif 4 Variable", "Source Serif Pro", Georgia, serif;
+	--font: "Libertinus Serif", "Linux Libertine O", Georgia, serif;
 	--radius: 4px;
 
 	/* Page grid: a text column, with a margin column on its left for dates
-	   and skill labels. Below 44rem the margin column folds
+	   and skill labels. Below 52.8rem the margin column folds
 	   into the text column (the breakpoint is repeated in media queries). */
 	--measure: 38rem;
 	--margin: 10.5rem;
-	--margin-gap: 1.5rem;
+	--margin-gap: 1.875rem;
 }
 
 *,
@@ -35,14 +38,22 @@ html {
 	text-size-adjust: 100%;
 }
 
+/* On screen everything is set 20% larger, as if zoomed to 120%. Media
+   queries ignore this size, so their breakpoints carry the factor. */
+@media screen {
+	html {
+		font-size: 120%;
+	}
+}
+
 body {
 	margin: 0;
 	background: var(--paper);
 	color: var(--ink);
 	font-family: var(--font);
-	font-size: 1.0625rem;
-	line-height: 1.6;
-	font-optical-sizing: auto;
+	/* 20px on screen, against which every vertical space is set in em. */
+	font-size: 1.04rem;
+	line-height: 1.47;
 	font-kerning: normal;
 	text-rendering: optimizeLegibility;
 	hyphens: auto;
@@ -56,7 +67,7 @@ main {
 
 /* Hangs an element's `.in-margin` children in the margin column, flushed
    right against the text. */
-@media (min-width: 44rem), print {
+@media (min-width: 52.8rem), print {
 	.hang {
 		display: grid;
 		grid-template-columns: var(--margin) minmax(0, 1fr);
@@ -82,9 +93,13 @@ main {
 h1,
 h2,
 h3 {
-	font-weight: 600;
-	line-height: 1.25;
+	font-weight: 400;
 	hyphens: manual;
+}
+
+strong,
+b {
+	font-weight: 700;
 }
 
 p,
@@ -95,14 +110,13 @@ dl {
 
 a {
 	color: var(--link);
-	text-decoration-line: underline;
+	text-decoration: none;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 0.18em;
-	text-decoration-color: color-mix(in srgb, var(--link) 35%, transparent);
 }
 
 a:hover {
-	text-decoration-color: currentColor;
+	text-decoration-line: underline;
 }
 
 a:focus-visible {
@@ -133,11 +147,7 @@ img {
 	left: 0;
 }
 
-@media screen and (max-width: 43.999rem) {
-	body {
-		font-size: 1rem;
-	}
-
+@media screen and (max-width: 52.799rem) {
 	main {
 		padding: 2.5rem 1rem 2rem;
 	}
@@ -149,14 +159,11 @@ img {
 	}
 
 	:root {
-		--paper: #fff;
-		--ink: #000;
-		--ink-soft: #222;
 		--link: #000;
 	}
 
 	body {
-		font-size: 10.5pt;
+		font-size: 11pt;
 	}
 
 	main {
@@ -169,20 +176,7 @@ img {
 	}
 }
 
-/* Body of CV entries (see Entry.astro). */
-.entry-detail {
-	margin-top: 0.4rem;
-}
-
-.entry-note {
-	margin-top: 0.3rem;
-	color: var(--muted);
-	font-size: 0.9rem;
-}
-
-/* Closing remark of a works section. */
+/* Closing remark of a works section, set apart like one more entry. */
 .closing {
-	margin-top: 2rem;
-	color: var(--muted);
-	font-size: 0.9rem;
+	margin-top: 1.05em;
 }

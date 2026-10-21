@@ -14,22 +14,18 @@ import { skills } from "../../data/skills"
 </dl>
 
 <style>
-	div + div {
-		margin-top: 0.3rem;
+	/* Set like a list of awards: 5px further off the title than entries,
+	   then 6.5px between rows. Padding, since a margin would collapse into
+	   the title's. */
+	dl {
+		padding-top: 0.24em;
 	}
 
-	dt {
-		color: var(--muted);
-		font-size: 0.9375rem;
+	div + div {
+		margin-top: 0.33em;
 	}
 
 	dd {
 		margin: 0;
-	}
-
-	@media screen and (max-width: 43.999rem) {
-		div + div {
-			margin-top: 0.5rem;
-		}
 	}
 </style>

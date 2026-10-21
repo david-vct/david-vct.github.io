@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets"
+import portrait from "../../assets/portrait.png"
+import { profile } from "../../data/profile"
+---
+
+<header class="masthead hang">
+	<Image
+		class="portrait in-margin"
+		src={portrait}
+		alt={`Portrait de ${profile.name}`}
+		width={250}
+		widths={[125, 250]}
+		sizes="125px"
+		loading="eager"
+	/>
+	<div>
+		<h1>{profile.name}</h1>
+		<address>
+			<a href={`mailto:${profile.email}`}>{profile.email}</a>
+			{
+				profile.links.map((link) => (
+					<>
+						{" "}
+						<span class="separator" aria-hidden="true">•</span>{" "}
+						<a href={link.href}>{link.label}</a>
+					</>
+				))
+			}
+			<br />
+			{profile.title} – {profile.location}
+		</address>
+	</div>
+</header>
+
+<style>
+	/* The portrait hangs in the margin column, so the text column stays clear
+	   as on the rest of the page. */
+	.masthead {
+		align-items: start;
+		/* Leaves the first title as far off as after any running text. */
+		padding-bottom: 0.48em;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: 2.275em;
+		line-height: 1;
+	}
+
+	address {
+		margin-top: 1.17em;
+		font-style: normal;
+	}
+
+	address a {
+		color: inherit;
+		white-space: nowrap;
+	}
+
+	/* With the spaces around it, 13px of white on each side. */
+	.separator {
+		margin: 0 0.3em;
+	}
+
+	/* No taller than the name and contact lines, so it leaves the first
+	   title where it would be without it. */
+	.portrait {
+		width: 6.5rem;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: var(--radius);
+	}
+
+	@media screen and (max-width: 52.799rem) {
+		.portrait {
+			width: 5rem;
+			margin-bottom: 1rem;
+		}
+	}
+
+	@media (max-width: 36rem) {
+		h1 {
+			font-size: 1.85rem;
+		}
+	}
+</style>

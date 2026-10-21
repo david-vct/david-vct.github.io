@@ -1,14 +1,16 @@
 ---
 import { Image, getImage } from "astro:assets"
-import type { NumberedFigure } from "../lib/bibliography"
+import type { NumberedFigure } from "../bibliography"
 
 interface Props {
 	figure: NumberedFigure
 	/** Title of the work the figure illustrates, used in the alt text. */
 	work: string
+	/** Share of the row it fills, when figures are laid out at equal height. */
+	share?: number
 }
 
-const { figure, work } = Astro.props
+const { figure, work, share } = Astro.props
 const { image, caption, number } = figure
 
 // Animated GIFs are served as is so they keep their animation.
@@ -18,14 +20,18 @@ const full = isAnimated
 	: await getImage({ src: image, format: "webp", width: Math.min(image.width, 1920) })
 ---
 
-<figure>
+<figure style={share ? `flex: ${share} 1 0` : undefined}>
 	<a href={full.src} data-lightbox aria-label={`Fig. ${number}, taille réelle`}>
 		<Image
 			src={image}
 			alt={`${work} : ${caption}`}
 			width={isAnimated ? undefined : Math.min(image.width, 720)}
 			widths={isAnimated ? undefined : [360, 720]}
-			sizes="(max-width: 44rem) 50vw, 13rem"
+			sizes={
+				share
+					? `(max-width: 52.8rem) ${Math.round(share * 100)}vw, ${Math.ceil(share * 46)}rem`
+					: "(max-width: 52.8rem) 50vw, 15rem"
+			}
 			format={isAnimated ? "gif" : "webp"}
 		/>
 	</a>
@@ -57,6 +63,6 @@ const full = isAnimated
 	.label {
 		color: var(--ink);
 		font-variant-caps: small-caps;
-		font-weight: 600;
+		font-weight: 700;
 	}
 </style>

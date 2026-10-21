@@ -1,0 +1,33 @@
+---
+interface Props {
+	id: string
+	title: string
+}
+
+const { id, title } = Astro.props
+---
+
+<section id={id} aria-labelledby={`${id}-title`}>
+	<h2 id={`${id}-title`}>{title}</h2>
+	<slot />
+</section>
+
+<style>
+	/* 33px between the last line of a section and the next title. */
+	section {
+		margin-top: 1.65em;
+	}
+
+	/* After running text, the title stands 10px further off. Padding, since a
+	   margin would collapse into the section's. */
+	section > :global(p:last-child) {
+		padding-bottom: 0.48em;
+	}
+
+	h2 {
+		margin: 0 0 0.82em;
+		color: var(--accent);
+		font-size: 1.58em;
+		line-height: 1;
+	}
+</style>

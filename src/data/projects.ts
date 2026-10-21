@@ -6,9 +6,15 @@ import experimental3 from "../assets/projects/experimental-coding-3.png"
 import padelgo1 from "../assets/projects/padelgo-1.png"
 import padelgo2 from "../assets/projects/padelgo-2.png"
 import padelgo3 from "../assets/projects/padelgo-3.png"
+import padelgoManager1 from "../assets/projects/padelgo-manager-1.png"
+import padelgoManager2 from "../assets/projects/padelgo-manager-2.png"
 import rculture1 from "../assets/projects/rculture-1.png"
 import rculture2 from "../assets/projects/rculture-2.png"
 import rculture3 from "../assets/projects/rculture-3.png"
+import trik3r1 from "../assets/projects/trik3r-1.png"
+import trik3r2 from "../assets/projects/trik3r-2.png"
+import verse1 from "../assets/projects/verse-1.webp"
+import verse2 from "../assets/projects/verse-2.webp"
 import vocabulary1 from "../assets/projects/vocabularytools-1.jpg"
 import type { ProjectGroup } from "./types"
 
@@ -22,10 +28,27 @@ export const projectGroups: ProjectGroup[] = [
     id: "products",
     projects: [
       {
+        id: "verse",
+        title: "Verse",
+        kind: "Application mobile de découverte et de suivi de médias",
+        period: { start: "2026-09" },
+        description:
+          "Application mobile de découverte et de suivi qui unifie films, séries, livres et jeux vidéo au sein d’une bibliothèque connectée d’univers fictifs, avec suivi, évaluations, collections personnalisées et fonctionnalités sociales.",
+        technologies: ["React Native", "Node.js"],
+        portrait: true,
+        figures: [
+          { image: verse1, caption: "Fiche d’une œuvre et suivi de sa lecture." },
+          {
+            image: verse2,
+            caption: "Bibliothèque : œuvres épinglées, listes et collections.",
+          },
+        ],
+      },
+      {
         id: "padelgo",
         title: "PadelGo",
         kind: "Application mobile de réservation et de matchmaking, iOS et Android",
-        period: { start: "2024-11" },
+        period: { start: "2024-11", end: "2026-09" },
         description:
           "Application qui connecte les joueurs de padel pour faciliter la création de parties, la recherche de partenaires et la réservation de terrains.",
         technologies: ["React Native", "Expo", "TypeScript"],
@@ -53,10 +76,33 @@ export const projectGroups: ProjectGroup[] = [
         id: "padelgo-manager",
         title: "PadelGo Manager",
         kind: "Plateforme web de gestion de clubs",
-        period: { start: "2024-11" },
+        period: { start: "2024-11", end: "2026-09" },
         description:
           "Plateforme destinée aux clubs de padel, qui centralise la gestion quotidienne de leurs activités : terrains, réservations, disponibilités et événements.",
         technologies: ["Next.js", "TypeScript"],
+        figures: [
+          {
+            image: padelgoManager1,
+            caption: "Application de gestion du club : actions rapides et terrains.",
+          },
+          {
+            image: padelgoManager2,
+            caption: "Présentation de la réservation et du matchmaking.",
+          },
+        ],
+      },
+      {
+        id: "trik3r",
+        title: "Trik3r Collecte",
+        kind: "Plateforme web de gestion des collectes de déchets",
+        period: { start: "2024-06", end: "2024-11" },
+        description:
+          "Plateforme web de gestion des collectes de déchets, qui simplifie les commandes, la planification des interventions et le suivi des prestations, pour les particuliers comme pour les professionnels.",
+        technologies: ["Node.js", "TypeScript"],
+        figures: [
+          { image: trik3r1, caption: "Présentation de l’entreprise." },
+          { image: trik3r2, caption: "Types de déchets pris en charge." },
+        ],
       },
     ],
   },

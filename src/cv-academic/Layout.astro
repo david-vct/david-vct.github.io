@@ -1,0 +1,18 @@
+---
+// Layout of the academic CV. Its stylesheet is imported here only, so it
+// never reaches the other pages of the site.
+import Base from "../layouts/Base.astro"
+import "./styles.css"
+
+interface Props {
+	title: string
+	description: string
+}
+
+const { title, description } = Astro.props
+---
+
+<Base title={title} description={description} ogType="profile">
+	<meta slot="head" name="color-scheme" content="light only" />
+	<slot />
+</Base>

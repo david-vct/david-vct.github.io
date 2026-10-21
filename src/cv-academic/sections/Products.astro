@@ -1,6 +1,6 @@
 ---
-import { projectsOf } from "../../lib/bibliography"
-import Work from "../Work.astro"
+import { projectsOf } from "../bibliography"
+import Work from "../components/Work.astro"
 ---
 
 {projectsOf("products").map((project) => <Work project={project} />)}

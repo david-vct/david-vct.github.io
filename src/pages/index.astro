@@ -1,74 +1,22 @@
 ---
-import Lightbox from "../components/Lightbox.astro"
-import Masthead from "../components/Masthead.astro"
-import Section from "../components/Section.astro"
-import Education from "../components/sections/Education.astro"
-import Experience from "../components/sections/Experience.astro"
-import Products from "../components/sections/Products.astro"
-import Profile from "../components/sections/Profile.astro"
-import Projects from "../components/sections/Projects.astro"
-import Skills from "../components/sections/Skills.astro"
 import { profile } from "../data/profile"
 import Base from "../layouts/Base.astro"
-import { formatMonthYear } from "../lib/dates"
-
-// Order of this list sets the section numbering.
-const sections = [
-	{ id: "profil", title: "Profil", Content: Profile },
-	{ id: "realisations", title: "Réalisations professionnelles", Content: Products },
-	{ id: "experience", title: "Expérience professionnelle", Content: Experience },
-	{ id: "formation", title: "Formation", Content: Education },
-	{
-		id: "projets",
-		title: "Logiciels libres et projets personnels",
-		Content: Projects,
-	},
-	{ id: "competences", title: "Compétences", Content: Skills },
-]
-
-const buildDate = new Date()
 ---
 
-<Base title={`${profile.name}, curriculum vitae`} description={profile.description}>
+<Base title={profile.name} description={profile.description}>
 	<main>
-		<Masthead />
-		{
-			sections.map(({ id, title, Content }, index) => (
-				<Section id={id} number={index + 1} title={title}>
-					<Content />
-				</Section>
-			))
-		}
-		<footer>
-			<p>
-				©&nbsp;{buildDate.getFullYear()} {profile.name}. Tous droits réservés.
-			</p>
-			<p>
-				Dernière mise à jour&nbsp;: {formatMonthYear(buildDate)}.{" "}
-				<a href="https://github.com/david-vct/david-vct.github.io">Sources</a> de
-				cette page.
-			</p>
-		</footer>
+		<h1>{profile.name}</h1>
+		<p>{profile.title}</p>
+		<ul>
+			<li><a href="/cv/academic/">Curriculum vitae</a></li>
+			<li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+			{
+				profile.links.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))
+			}
+		</ul>
 	</main>
-	<Lightbox />
 </Base>
-
-<style>
-	footer {
-		margin-top: 3.5rem;
-		padding-top: 0.75rem;
-		border-top: 1px solid var(--rule);
-		color: var(--muted);
-		font-size: 0.875rem;
-	}
-
-	footer p + p {
-		margin-top: 0.15rem;
-	}
-
-	@media print {
-		footer a {
-			display: none;
-		}
-	}
-</style>

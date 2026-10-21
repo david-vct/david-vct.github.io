@@ -1,29 +1,28 @@
 ---
 import { experience } from "../../data/experience"
-import { cite } from "../../lib/bibliography"
+import { cite } from "../bibliography"
 import { formatPeriod } from "../../lib/dates"
-import Entry from "../Entry.astro"
+import Entry from "../components/Entry.astro"
 ---
 
 {
 	experience.map((job) => (
 		<Entry
-			title={job.role}
+			title={job.organization}
+			place={job.location}
 			aside={formatPeriod(job.period)}
-			subtitle={[job.organization, job.contract.toLowerCase(), job.location]
-				.filter(Boolean)
-				.join(", ")}
+			subtitle={[job.role, job.contract.toLowerCase()].filter(Boolean).join(", ")}
 		>
-			<ul class="dashed entry-detail">
+			<ul class="dashed">
 				{job.items.map((item) => (
 					<li>{item}</li>
 				))}
 			</ul>
 			{job.technologies && (
-				<p class="entry-note">Environnement&nbsp;: {job.technologies.join(", ")}.</p>
+				<p>Environnement&nbsp;: {job.technologies.join(", ")}.</p>
 			)}
 			{job.related && (
-				<p class="entry-note">
+				<p>
 					Travaux associés&nbsp;:{" "}
 					{job.related.map(cite).map((citation, index) => (
 						<>

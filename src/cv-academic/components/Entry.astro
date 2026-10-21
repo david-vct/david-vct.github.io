@@ -1,19 +1,22 @@
 ---
 // One entry of the CV. Its date hangs in the margin column, facing the
-// title.
+// first line: the title in bold, then where it took place.
 interface Props {
 	title: string
+	place?: string
 	aside?: string
 	subtitle?: string
 	id?: string
 }
 
-const { title, aside, subtitle, id } = Astro.props
+const { title, place, aside, subtitle, id } = Astro.props
 ---
 
 <article class="entry hang" id={id}>
 	{aside && <span class="aside in-margin">{aside}</span>}
-	<h3 class="title">{title}</h3>
+	<h3 class="title">
+		<strong>{title}</strong>{place && <> – {place}</>}
+	</h3>
 	{subtitle && <p class="subtitle">{subtitle}</p>}
 	<div class="body"><slot /></div>
 </article>
@@ -24,28 +27,20 @@ const { title, aside, subtitle, id } = Astro.props
 	}
 
 	.entry + :global(.entry) {
-		margin-top: 1.5rem;
+		margin-top: 1.05em;
 	}
 
 	.aside {
-		color: var(--muted);
-		font-size: 0.9375rem;
 		font-variant-numeric: lining-nums tabular-nums;
 	}
 
 	.title {
 		margin: 0;
-		font-size: 1.0625rem;
-		font-weight: 600;
-	}
-
-	.subtitle {
-		color: var(--ink-soft);
-		font-style: italic;
+		font-size: inherit;
 	}
 
 	/* The date faces the title line. */
-	@media (min-width: 44rem), print {
+	@media (min-width: 52.8rem), print {
 		.aside {
 			grid-row: 1;
 		}

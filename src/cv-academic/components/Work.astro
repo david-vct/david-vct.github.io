@@ -1,6 +1,6 @@
 ---
-import { projectAnchor, type NumberedProject } from "../lib/bibliography"
-import { formatPeriod } from "../lib/dates"
+import { projectAnchor, type NumberedProject } from "../bibliography"
+import { formatPeriod } from "../../lib/dates"
 import Entry from "./Entry.astro"
 import Figure from "./Figure.astro"
 
@@ -9,6 +9,12 @@ interface Props {
 }
 
 const { project } = Astro.props
+
+// Portrait and landscape figures together are set at equal height, each as
+// wide as its proportions ask, rather than in fixed columns.
+const ratios = project.figures.map(({ image }) => image.width / image.height)
+const mixed = ratios.some((ratio) => ratio < 1) && ratios.some((ratio) => ratio > 1)
+const total = ratios.reduce((sum, ratio) => sum + ratio, 0)
 ---
 
 <Entry
@@ -16,8 +22,8 @@ const { project } = Astro.props
 	title={project.title}
 	aside={formatPeriod(project.period)}
 >
-	<p class="entry-detail">{project.description}</p>
-	<p class="entry-note">
+	<p>{project.description}</p>
+	<p>
 		{project.technologies.join(", ")}.
 		{
 			project.links?.map((link) => (
@@ -30,9 +36,13 @@ const { project } = Astro.props
 	</p>
 	{
 		project.figures.length > 0 && (
-			<div class:list={["figures", { portrait: project.portrait }]}>
-				{project.figures.map((figure) => (
-					<Figure figure={figure} work={project.title} />
+			<div class:list={["figures", { portrait: project.portrait, mixed }]}>
+				{project.figures.map((figure, index) => (
+					<Figure
+						figure={figure}
+						work={project.title}
+						share={mixed ? ratios[index] / total : undefined}
+					/>
 				))}
 			</div>
 		)
@@ -53,7 +63,11 @@ const { project } = Astro.props
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 
-	@media screen and (max-width: 43.999rem) {
+	.figures.mixed {
+		display: flex;
+	}
+
+	@media screen and (max-width: 52.799rem) {
 		.figures {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
