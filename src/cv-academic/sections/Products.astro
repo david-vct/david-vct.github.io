@@ -1,0 +1,11 @@
+---
+import { projectsOf } from "../bibliography"
+import Work from "../components/Work.astro"
+---
+
+{projectsOf("products").map((project) => <Work project={project} />)}
+
+<p class="closing">
+	Une partie des réalisations menées pour des clients est propriétaire et ne
+	peut être présentée ici.
+</p>

@@ -1,0 +1,13 @@
+---
+import { profile } from "../../data/profile"
+import { projectsOf } from "../bibliography"
+import Work from "../components/Work.astro"
+
+const github = profile.links.find((link) => link.href.includes("github.com"))
+---
+
+{projectsOf("personal").map((project) => <Work project={project} />)}
+
+<p class="closing">
+	D’autres travaux sont disponibles sur <a href={github?.href}>GitHub</a>.
+</p>

@@ -1,0 +1,31 @@
+---
+import { skills } from "../../data/skills"
+---
+
+<dl>
+	{
+		skills.map((group) => (
+			<div class="hang">
+				<dt class="in-margin">{group.label}</dt>
+				<dd>{group.items.join(", ")}</dd>
+			</div>
+		))
+	}
+</dl>
+
+<style>
+	/* Set like a list of awards: 5px further off the title than entries,
+	   then 6.5px between rows. Padding, since a margin would collapse into
+	   the title's. */
+	dl {
+		padding-top: 0.24em;
+	}
+
+	div + div {
+		margin-top: 0.33em;
+	}
+
+	dd {
+		margin: 0;
+	}
+</style>

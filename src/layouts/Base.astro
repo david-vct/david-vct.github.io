@@ -1,0 +1,34 @@
+---
+// Document shell shared by every page: metadata only, no styles. Each page
+// brings its own stylesheet, through its own layout.
+interface Props {
+	title: string
+	description: string
+	ogType?: "website" | "profile"
+}
+
+const { title, description, ogType = "website" } = Astro.props
+const url = new URL(Astro.url.pathname, Astro.site)
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="David Vicente" />
+		<link rel="canonical" href={url} />
+		<link rel="icon" href="/favicon.ico" />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={url} />
+		<meta property="og:locale" content="fr_FR" />
+		<slot name="head" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

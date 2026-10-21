@@ -1,0 +1,22 @@
+---
+import { profile } from "../data/profile"
+import Base from "../layouts/Base.astro"
+---
+
+<Base title={profile.name} description={profile.description}>
+	<main>
+		<h1>{profile.name}</h1>
+		<p>{profile.title}</p>
+		<ul>
+			<li><a href="/cv/academic/">Curriculum vitae</a></li>
+			<li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+			{
+				profile.links.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))
+			}
+		</ul>
+	</main>
+</Base>

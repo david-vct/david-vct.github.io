@@ -1,0 +1,182 @@
+@import "@fontsource/libertinus-serif/400.css";
+@import "@fontsource/libertinus-serif/400-italic.css";
+@import "@fontsource/libertinus-serif/700.css";
+@import "@fontsource/libertinus-serif/700-italic.css";
+
+:root {
+	color-scheme: light;
+
+	/* All text is black; only section titles and links are coloured.
+	   `--muted` is kept for what sits outside the CV itself (captions,
+	   footer). */
+	--paper: #fff;
+	--ink: #000;
+	--accent: #96322d;
+	--link: #335c7a;
+	--muted: #6e6b64;
+	--rule: #d9d5cc;
+
+	--font: "Libertinus Serif", "Linux Libertine O", Georgia, serif;
+	--radius: 4px;
+
+	/* Page grid: a text column, with a margin column on its left for dates
+	   and skill labels. Below 52.8rem the margin column folds
+	   into the text column (the breakpoint is repeated in media queries). */
+	--measure: 38rem;
+	--margin: 10.5rem;
+	--margin-gap: 1.875rem;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+/* On screen everything is set 20% larger, as if zoomed to 120%. Media
+   queries ignore this size, so their breakpoints carry the factor. */
+@media screen {
+	html {
+		font-size: 120%;
+	}
+}
+
+body {
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--font);
+	/* 20px on screen, against which every vertical space is set in em. */
+	font-size: 1.04rem;
+	line-height: 1.47;
+	font-kerning: normal;
+	text-rendering: optimizeLegibility;
+	hyphens: auto;
+}
+
+main {
+	max-width: calc(var(--margin) + var(--margin-gap) + var(--measure) + 2rem);
+	margin: 0 auto;
+	padding: 4.5rem 1rem 2rem calc(var(--margin) + var(--margin-gap) + 1rem);
+}
+
+/* Hangs an element's `.in-margin` children in the margin column, flushed
+   right against the text. */
+@media (min-width: 52.8rem), print {
+	.hang {
+		display: grid;
+		grid-template-columns: var(--margin) minmax(0, 1fr);
+		column-gap: var(--margin-gap);
+		align-items: baseline;
+		margin-left: calc(-1 * (var(--margin) + var(--margin-gap)));
+	}
+
+	/* Margin notes stay on one line; if one is longer than the column it
+	   grows leftwards, never into the text. */
+	.hang > .in-margin {
+		grid-column: 1;
+		justify-self: end;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.hang > :not(.in-margin) {
+		grid-column: 2;
+	}
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 400;
+	hyphens: manual;
+}
+
+strong,
+b {
+	font-weight: 700;
+}
+
+p,
+ul,
+dl {
+	margin: 0;
+}
+
+a {
+	color: var(--link);
+	text-decoration: none;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+}
+
+a:hover {
+	text-decoration-line: underline;
+}
+
+a:focus-visible {
+	outline: 1px solid var(--link);
+	outline-offset: 2px;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Lists use the French typographic dash rather than bullets. */
+.dashed {
+	list-style: none;
+	padding: 0;
+}
+
+.dashed > li {
+	position: relative;
+	padding-left: 1.1em;
+}
+
+.dashed > li::before {
+	content: "–";
+	position: absolute;
+	left: 0;
+}
+
+@media screen and (max-width: 52.799rem) {
+	main {
+		padding: 2.5rem 1rem 2rem;
+	}
+}
+
+@media print {
+	@page {
+		margin: 1.6cm 1.8cm;
+	}
+
+	:root {
+		--link: #000;
+	}
+
+	body {
+		font-size: 11pt;
+	}
+
+	main {
+		max-width: none;
+		padding: 0 0 0 calc(var(--margin) + var(--margin-gap));
+	}
+
+	a {
+		text-decoration: none;
+	}
+}
+
+/* Closing remark of a works section, set apart like one more entry. */
+.closing {
+	margin-top: 1.05em;
+}
