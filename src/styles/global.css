@@ -179,3 +179,10 @@ img {
 	color: var(--muted);
 	font-size: 0.9rem;
 }
+
+/* Closing remark of a works section. */
+.closing {
+	margin-top: 2rem;
+	color: var(--muted);
+	font-size: 0.9rem;
+}

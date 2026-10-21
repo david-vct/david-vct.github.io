@@ -22,7 +22,7 @@ export type Experience = {
 	period: Period
 	items: string[]
 	technologies?: string[]
-	/** Ids of the related entries in the works section, rendered as citations. */
+	/** Ids of the related entries in the works sections, rendered as citations. */
 	related?: string[]
 }
 
@@ -56,7 +56,8 @@ export type Project = {
 }
 
 export type ProjectGroup = {
-	title: string
+	/** Products made for clients, or personal and open source work. */
+	id: "products" | "personal"
 	projects: Project[]
 }
 

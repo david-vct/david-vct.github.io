@@ -1,5 +1,5 @@
 import { projectGroups } from "../data/projects"
-import type { Figure, Project } from "../data/types"
+import type { Figure, Project, ProjectGroup } from "../data/types"
 
 export type NumberedFigure = Figure & { number: number }
 
@@ -12,7 +12,7 @@ export type NumberedProject = Omit<Project, "figures"> & {
 let figureCount = 0
 
 export const numberedGroups = projectGroups.map((group) => ({
-	title: group.title,
+	id: group.id,
 	projects: group.projects.map(
 		(project): NumberedProject => ({
 			...project,
@@ -23,6 +23,9 @@ export const numberedGroups = projectGroups.map((group) => ({
 		}),
 	),
 }))
+
+export const projectsOf = (id: ProjectGroup["id"]) =>
+	numberedGroups.find((group) => group.id === id)?.projects ?? []
 
 const byId = new Map(
 	numberedGroups.flatMap((group) => group.projects).map((p) => [p.id, p]),
