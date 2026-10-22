@@ -13,7 +13,7 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 <section class="section container" id="parcours">
 	<SectionHeading title="Parcours" stroke={3}>
 		<p>
-			Deux ans d’alternance, puis l’indépendance. Le détail est dans le <a href="/cv/academic/">curriculum vitae</a>.
+			Deux ans d’alternance, puis l’indépendance.
 		</p>
 	</SectionHeading>
 
@@ -22,7 +22,7 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 			<h3 class="label muted">Expérience</h3>
 			<div class="timeline">
 				<div class="line" data-reveal>
-					<Scribble shape={careerLine} width={3} stretch />
+					<Scribble shape={careerLine} weight="3px" stretch />
 				</div>
 				<ol>
 					{
@@ -74,7 +74,6 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 				</dl>
 			</div>
 
-			<a class="button button--secondary" href="/cv/academic/" data-reveal>Lire le CV complet</a>
 		</div>
 	</div>
 </section>
@@ -85,9 +84,9 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 	}
 
 	h3 {
-		margin-bottom: var(--space-5);
-		padding-bottom: var(--space-3);
-		border-bottom: var(--rule) solid var(--color-rule);
+		margin-bottom: var(--space-6);
+		padding-top: var(--space-4);
+		border-top: var(--rule-thick) solid var(--color-contrast);
 	}
 
 	h4 {
@@ -145,11 +144,6 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 		display: grid;
 		gap: var(--space-9);
 		align-content: start;
-		justify-items: start;
-	}
-
-	.side > div {
-		width: 100%;
 	}
 
 	.studies {

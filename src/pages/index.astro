@@ -1,6 +1,4 @@
 ---
-import { getImage } from "astro:assets"
-import portraitSource from "../assets/portrait.webp"
 import { profile } from "../data/profile"
 import Footer from "../home/components/Footer.astro"
 import Header from "../home/components/Header.astro"
@@ -12,20 +10,15 @@ import Hero from "../home/sections/Hero.astro"
 import Lab from "../home/sections/Lab.astro"
 import Projects from "../home/sections/Projects.astro"
 import Services from "../home/sections/Services.astro"
-
-// The portrait is drawn inside an SVG, which has no srcset: one size serves
-// every screen, about twice its largest display width.
-const portrait = await getImage({ src: portraitSource, width: 960, format: "webp", quality: 72 })
 ---
 
 <Layout
 	title={`${profile.name}, développeur web et mobile indépendant`}
 	description="David Vicente, ingénieur logiciel indépendant à Toulouse : conception et développement d’applications web et mobiles pour les PME et les startups, renfort d’équipes de développement."
-	preloadImage={portrait.src}
 >
 	<Header />
 	<main>
-		<Hero portrait={portrait} />
+		<Hero />
 		<About />
 		<Services />
 		<Projects />

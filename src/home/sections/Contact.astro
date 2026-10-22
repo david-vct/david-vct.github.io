@@ -1,7 +1,7 @@
 ---
 import { profile } from "../../data/profile"
 import Scribble from "../components/Scribble.astro"
-import { loop } from "../shapes"
+import { underlines } from "../shapes"
 ---
 
 <section class="contact on-accent grain" id="contact">
@@ -14,7 +14,7 @@ import { loop } from "../shapes"
 			</p>
 			<a class="email" href={`mailto:${profile.email}`}>
 				{profile.email}
-				<Scribble class="loop" shape={loop} width={4} stretch />
+				<Scribble class="underline" shape={underlines[1]} weight="0.09em" />
 			</a>
 			<div class="buttons">
 				<a class="button" href={`mailto:${profile.email}`}>Écrire un e-mail</a>
@@ -57,6 +57,7 @@ import { loop } from "../shapes"
 
 	.email {
 		position: relative;
+		z-index: 0;
 		display: inline-block;
 		font-size: clamp(var(--text-lg), 1rem + 2vw, var(--text-2xl));
 		font-stretch: 115%;
@@ -66,13 +67,15 @@ import { loop } from "../shapes"
 	}
 
 	/* Scoped styles do not reach a class handed to a child component. */
-	.email :global(.loop) {
+	/* Behind the letters, like the section titles. */
+	.email :global(.underline) {
 		position: absolute;
-		top: -40%;
-		left: -9%;
-		width: 118%;
+		z-index: -1;
+		left: -2%;
+		bottom: -0.32em;
+		width: 104%;
 		max-width: none;
-		height: 180%;
+		height: auto;
 	}
 
 	@media (min-width: 1024px) {

@@ -1,53 +1,48 @@
 ---
-import { services } from "../../data/services"
+import { serviceTechnologies, services } from "../../data/services"
 import SectionHeading from "../components/SectionHeading.astro"
 ---
 
 <section class="section container" id="services">
 	<SectionHeading title="Services" stroke={0}>
-		<p>Deux façons de travailler ensemble, selon que votre produit reste à construire ou qu’une équipe le développe déjà.</p>
+		<p>Deux façons de collaborer en fonction du besoin.</p>
 	</SectionHeading>
 
-	<div class="services">
+	<div class="services grid">
 		{
 			services.map((service, index) => (
-				<article class:list={["service grid", { "service--mirrored": index % 2 === 1 }]} data-reveal>
-					<h3>{service.title}</h3>
-					<div class="body">
-						<p class="description">{service.description}</p>
-						<ul class="items">
-							{service.items.map((item) => <li>{item}</li>)}
-						</ul>
-						{service.technologies && (
-							<ul class="technologies label muted">
-								{service.technologies.map((technology) => <li>{technology}</li>)}
-							</ul>
-						)}
-					</div>
+				<article class="service" data-reveal style={`--delay: ${index * 0.12}s`}>
+					<h3 class="title">{service.title}</h3>
+					<p class="description">{service.description}</p>
+					<ul class="items">
+						{service.items.map((item) => <li>{item}</li>)}
+					</ul>
 				</article>
 			))
 		}
 	</div>
+
+	<ul class="technologies label muted" aria-label="Technologies" data-reveal>
+		{serviceTechnologies.map((technology) => <li>{technology}</li>)}
+	</ul>
 </section>
 
 <style>
-	.service {
-		row-gap: var(--space-5);
-		padding-block: var(--space-6) var(--space-9);
+	.services {
+		row-gap: var(--space-9);
+		padding-top: var(--space-6);
 		border-top: var(--rule-thick) solid var(--color-contrast);
 	}
 
-	.service:last-child {
-		padding-bottom: 0;
-	}
-
-	h3 {
+	.title {
+		max-width: 8em;
+		margin-bottom: var(--space-6);
 		font-size: var(--text-3xl);
 		line-height: 1.05;
 	}
 
 	.description {
-		max-width: 36rem;
+		max-width: 34rem;
 		margin-bottom: var(--space-5);
 		font-size: var(--text-lg);
 		line-height: 1.36;
@@ -56,7 +51,7 @@ import SectionHeading from "../components/SectionHeading.astro"
 	.items {
 		display: grid;
 		gap: var(--space-2);
-		max-width: 36rem;
+		max-width: 34rem;
 	}
 
 	/* Square bullets in the accent colour. */
@@ -79,39 +74,23 @@ import SectionHeading from "../components/SectionHeading.astro"
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-1) var(--space-5);
-		margin-top: var(--space-5);
+		margin-top: var(--space-9);
 	}
 
 	@media (min-width: 768px) {
-		h3 {
+		.title {
 			font-size: var(--text-4xl);
 		}
 	}
 
 	@media (min-width: 1024px) {
-		.service:not(:last-child) {
-			padding-bottom: var(--space-10);
+		/* The two services side by side, titles on two lines each. */
+		.service {
+			grid-column: span 6;
 		}
 
-		h3 {
-			grid-column: 1 / span 5;
-			grid-row: 1;
+		.title {
 			font-size: clamp(var(--text-4xl), 1rem + 3vw, 4.5rem);
-		}
-
-		.body {
-			grid-column: 7 / span 6;
-			grid-row: 1;
-			padding-top: var(--space-3);
-		}
-
-		/* Every other service swaps sides, so the titles zigzag down the page. */
-		.service--mirrored h3 {
-			grid-column: 8 / span 5;
-		}
-
-		.service--mirrored .body {
-			grid-column: 1 / span 6;
 		}
 	}
 </style>

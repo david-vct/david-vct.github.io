@@ -6,13 +6,16 @@ import type { Shape } from "../shapes"
 interface Props {
 	shape: Shape
 	class?: string
-	/** Stroke width, in the units of the shape's viewBox. */
-	width?: number
+	/**
+	 * Stroke width as a CSS length. It does not scale with the drawing, so in
+	 * em it follows the size of the text it underlines, whatever its length.
+	 */
+	weight?: string
 	/** Stretch the shape to its box instead of keeping its proportions. */
 	stretch?: boolean
 }
 
-const { shape, class: className, width = 6, stretch = false } = Astro.props
+const { shape, class: className, weight = "0.05em", stretch = false } = Astro.props
 // Displacing a stretched stroke jitters it, so those keep their own wobble.
 const filter = stretch ? undefined : "url(#ink-line)"
 ---
@@ -25,10 +28,6 @@ const filter = stretch ? undefined : "url(#ink-line)"
 	focusable="false"
 >
 	<g filter={filter}>
-		<path
-			d={shape.d}
-			pathLength="1"
-			stroke-width={width}
-			vector-effect={stretch ? "non-scaling-stroke" : undefined}></path>
+		<path d={shape.d} pathLength="1" style={`stroke-width: ${weight}`} vector-effect="non-scaling-stroke"></path>
 	</g>
 </svg>

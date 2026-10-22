@@ -10,10 +10,9 @@ export const services: Service[] = [
 			"Applications iOS et Android avec React Native et Expo",
 			"API et services côté serveur avec Node.js",
 		],
-		technologies: ["TypeScript", "React", "Next.js", "React Native", "Expo", "Node.js"],
 	},
 	{
-		title: "Renfort d’équipe",
+		title: "Renfort d’équipe technique",
 		description:
 			"Je rejoins votre équipe de développement pour accélérer un projet existant ou absorber un pic d’activité.",
 		items: [
@@ -22,4 +21,16 @@ export const services: Service[] = [
 			"Organisation agile, Scrum ou SAFe",
 		],
 	},
+]
+
+/** Technologies common to every service. */
+export const serviceTechnologies = [
+	"TypeScript",
+	"React",
+	"Next.js",
+	"React Native",
+	"Expo",
+	"Node.js",
+	"NestJS",
+	"PostgreSQL",
 ]

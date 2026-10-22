@@ -34,10 +34,23 @@ const logos = await Promise.all(
 			<div><dt class="muted">Expérience</dt><dd>{years} ans</dd></div>
 		</dl>
 		<p class="statement" data-reveal style="--delay: 0.1s">
-			Ingénieur logiciel depuis {years} ans, je travaille surtout dans l’écosystème TypeScript : React,
-			Next.js et React Native côté client, Node.js côté serveur.
+			De la startup au grand groupe, on m’a confié des produits entiers comme des équipes à
+			renforcer.
 		</p>
-		<p class="story muted" data-reveal style="--delay: 0.2s">{profile.summary[1]}</p>
+		<div class="track track--products" data-reveal style="--delay: 0.2s">
+			<h2 class="label">Produits livrés</h2>
+			<p class="muted">
+				PadelGo, PadelGo Manager et Trik3r : applications iOS et Android, plateformes web et API,
+				pris en charge du premier écran au dernier déploiement.
+			</p>
+		</div>
+		<div class="track track--teams" data-reveal style="--delay: 0.28s">
+			<h2 class="label">Équipes renforcées</h2>
+			<p class="muted">
+				Chez Capgemini et au Groupe Adonis : nouvelles fonctionnalités, optimisation et maintenance
+				d’applications en production, au rythme d’équipes agiles.
+			</p>
+		</div>
 	</div>
 
 	<div class="clients" data-reveal>
@@ -61,13 +74,13 @@ const logos = await Promise.all(
 
 <style>
 	.grid {
-		row-gap: var(--space-8);
+		row-gap: var(--space-7);
 	}
 
 	.facts {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-		gap: var(--space-4) var(--space-6);
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4) var(--space-8);
 		align-content: start;
 	}
 
@@ -82,8 +95,11 @@ const logos = await Promise.all(
 		text-wrap: balance;
 	}
 
-	.story {
-		max-width: 40rem;
+	.track {
+		display: grid;
+		gap: var(--space-3);
+		align-content: start;
+		max-width: 34rem;
 	}
 
 	.clients {
@@ -120,19 +136,30 @@ const logos = await Promise.all(
 	}
 
 	@media (min-width: 1024px) {
+		.grid {
+			row-gap: var(--space-9);
+		}
+
 		.facts {
 			grid-column: 1 / span 3;
-			grid-template-columns: 1fr;
+			grid-row: 1;
+			flex-direction: column;
 		}
 
 		.statement {
 			grid-column: 4 / span 9;
+			grid-row: 1;
 			font-size: clamp(var(--text-4xl), 1rem + 3.4vw, 4.5rem);
 			line-height: 1.08;
 		}
 
-		.story {
-			grid-column: 7 / span 5;
+		/* Both tracks side by side, under the statement. */
+		.track--products {
+			grid-column: 4 / span 4;
+		}
+
+		.track--teams {
+			grid-column: 8 / span 4;
 		}
 
 		.clients {

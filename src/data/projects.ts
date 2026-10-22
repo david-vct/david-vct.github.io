@@ -37,7 +37,10 @@ export const projectGroups: ProjectGroup[] = [
         technologies: ["React Native", "Node.js"],
         portrait: true,
         figures: [
-          { image: verse1, caption: "Fiche d’une œuvre et suivi de sa lecture." },
+          {
+            image: verse1,
+            caption: "Fiche d’une œuvre et suivi de sa lecture.",
+          },
           {
             image: verse2,
             caption: "Bibliothèque : œuvres épinglées, listes et collections.",
@@ -83,7 +86,8 @@ export const projectGroups: ProjectGroup[] = [
         figures: [
           {
             image: padelgoManager1,
-            caption: "Application de gestion du club : actions rapides et terrains.",
+            caption:
+              "Application de gestion du club : actions rapides et terrains.",
           },
           {
             image: padelgoManager2,
@@ -168,7 +172,7 @@ export const projectGroups: ProjectGroup[] = [
         kind: "Outil en ligne de commande pour Linux",
         period: { start: "2026-01", end: "2026-03" },
         description:
-          "Surcouche Bash de ydotool pour les claviers non QWERTY : les entrées sont traduites vers la disposition QWERTY attendue par ydotool, ce qui permet une saisie automatisée correcte quelle que soit la disposition utilisée.",
+          "Surcouche Bash de ydotool pour les claviers non-qwerty. Les entrées sont rebind vers le layout qwerty attendu par ydotool.",
         technologies: ["Bash", "Linux"],
         links: [{ label: "code", href: `${GITHUB}/ydotool-rebind` }],
       },

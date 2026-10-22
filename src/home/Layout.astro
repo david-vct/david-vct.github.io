@@ -10,11 +10,9 @@ import "./styles.css"
 interface Props {
 	title: string
 	description: string
-	/** Image shown above the fold, fetched before the stylesheet asks for it. */
-	preloadImage?: string
 }
 
-const { title, description, preloadImage } = Astro.props
+const { title, description } = Astro.props
 ---
 
 <Base title={title} description={description}>
@@ -22,7 +20,6 @@ const { title, description, preloadImage } = Astro.props
 		<meta name="color-scheme" content="dark" />
 		<Font cssVariable="--font-serif" preload />
 		<Font cssVariable="--font-sans" preload />
-		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 		<script is:inline>
 			document.documentElement.classList.add("js")
 		</script>

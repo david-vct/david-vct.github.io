@@ -39,12 +39,6 @@ export const underlines: Shape[] = [
 	},
 ]
 
-/** Loop drawn around the e-mail address, like a circle made with a marker. */
-export const loop: Shape = {
-	viewBox: "0 0 600 200",
-	d: "M332 18C182 8 34 30 18 100C6 160 162 192 322 186C472 180 592 150 584 92C576 36 438 10 296 22C246 26 196 36 164 50",
-}
-
 /** Line running down the career timeline, stretched to its height. */
 export const careerLine: Shape = {
 	viewBox: "0 0 24 1000",

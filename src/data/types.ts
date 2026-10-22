@@ -70,7 +70,6 @@ export type Service = {
 	title: string
 	description: string
 	items: string[]
-	technologies?: string[]
 }
 
 export type Client = {

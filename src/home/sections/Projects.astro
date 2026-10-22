@@ -10,20 +10,15 @@ const projects = projectGroups.find((group) => group.id === "products")?.project
 
 <section class="section container" id="projets">
 	<SectionHeading title="Projets" stroke={1}>
-		<p>Des produits conçus et développés pour des clients, de la maquette à la mise en ligne.</p>
+		<p>Produits développés pour des clients, de la conception à la mise en production.</p>
 	</SectionHeading>
 
 	{
 		projects.map((project) => (
 			<article class="project grid" id={project.id}>
-				<header class="head" data-reveal>
-					<h3>{project.title}</h3>
-					<p class="meta label">
-						<span>{project.kind}</span>
-						<span class="muted">{formatPeriod(project.period)}</span>
-					</p>
-				</header>
+				<h3 data-reveal>{project.title}</h3>
 				<div class="text" data-reveal style="--delay: 0.1s">
+					<p class="label muted">{formatPeriod(project.period)}</p>
 					<p>{project.description}</p>
 					<ul class="technologies label muted">
 						{project.technologies.map((technology) => <li>{technology}</li>)}
@@ -59,19 +54,9 @@ const projects = projectGroups.find((group) => group.id === "products")?.project
 		padding-bottom: 0;
 	}
 
-	.head {
-		display: grid;
-		gap: var(--space-3);
-	}
-
 	h3 {
 		font-size: clamp(var(--text-4xl), 1rem + 6vw, 7.5rem);
 		line-height: 0.95;
-	}
-
-	.meta {
-		display: flex;
-		flex-direction: column;
 	}
 
 	.text {
@@ -88,19 +73,8 @@ const projects = projectGroups.find((group) => group.id === "products")?.project
 	}
 
 	@media (min-width: 1024px) {
-		.head {
-			grid-column: 1 / -1;
-			grid-template-columns: subgrid;
-			align-items: end;
-		}
-
 		h3 {
-			grid-column: 1 / span 8;
-		}
-
-		.meta {
-			grid-column: 9 / span 4;
-			padding-bottom: 0.5em;
+			grid-column: 1 / -1;
 		}
 
 		.text {
