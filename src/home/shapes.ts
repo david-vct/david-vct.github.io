@@ -50,3 +50,9 @@ export const dot: Shape = {
 	viewBox: "0 0 40 40",
 	d: "M21 3C31 4 38 11 37 21C36 31 29 38 19 37C9 36 3 29 4 19C5 9 11 2 21 3Z",
 }
+
+/** Flat puddle the isometric computer of the presentation stands on. */
+export const computerBlob: Shape = {
+	viewBox: "0 0 500 240",
+	d: "M246 16C318 8 404 30 452 74C490 110 488 154 452 186C410 222 336 222 268 228C196 234 116 224 62 192C18 166 8 122 38 86C78 38 168 24 246 16Z",
+}

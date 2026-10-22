@@ -47,4 +47,25 @@ const { title, description } = Astro.props
 			elements.forEach((element) => observer.observe(element))
 		})()
 	</script>
+	<script>
+		// Feeds each [data-drift] element the pointer position, from -1 to 1 on
+		// both axes, so its layers can drift apart under the pointer.
+		const motion = window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)")
+
+		if (motion.matches) {
+			document.querySelectorAll<HTMLElement>("[data-drift]").forEach((element) => {
+				element.addEventListener("pointermove", (event) => {
+					const bounds = element.getBoundingClientRect()
+					const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1
+					const y = ((event.clientY - bounds.top) / bounds.height) * 2 - 1
+					element.style.setProperty("--pointer-x", x.toFixed(3))
+					element.style.setProperty("--pointer-y", y.toFixed(3))
+				})
+				element.addEventListener("pointerleave", () => {
+					element.style.setProperty("--pointer-x", "0")
+					element.style.setProperty("--pointer-y", "0")
+				})
+			})
+		}
+	</script>
 </Base>

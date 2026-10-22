@@ -1,9 +1,11 @@
 ---
-import { getImage } from "astro:assets"
+import { getImage, Image } from "astro:assets"
+import computer from "../../assets/computer-iso.webp"
 import { clients } from "../../data/clients"
 import { experience } from "../../data/experience"
 import { profile } from "../../data/profile"
 import { yearsSince } from "../../lib/dates"
+import { computerBlob } from "../shapes"
 
 // Experience counts from the first work-study contract.
 const firstJob = experience.filter((job) => job.contract === "Alternance").at(-1) ?? experience[0]
@@ -40,16 +42,26 @@ const logos = await Promise.all(
 		<div class="track track--products" data-reveal style="--delay: 0.2s">
 			<h2 class="label">Produits livrés</h2>
 			<p class="muted">
-				PadelGo, PadelGo Manager et Trik3r : applications iOS et Android, plateformes web et API,
-				pris en charge du premier écran au dernier déploiement.
+				J’ai pris en charge la conception et le développement intégrale de PadelGo, PadelGo Manager.
 			</p>
 		</div>
 		<div class="track track--teams" data-reveal style="--delay: 0.28s">
 			<h2 class="label">Équipes renforcées</h2>
 			<p class="muted">
-				Chez Capgemini et au Groupe Adonis : nouvelles fonctionnalités, optimisation et maintenance
-				d’applications en production, au rythme d’équipes agiles.
+				J’ai rejoint les équipes de EDF et Groupe Adonis pour contribuer à leurs développements existants.
 			</p>
+		</div>
+		<div class="computer" data-drift data-reveal style="--delay: 0.2s">
+			<svg class="blob" viewBox={computerBlob.viewBox} aria-hidden="true" focusable="false">
+				<g filter="url(#ink)"><path d={computerBlob.d}></path></g>
+			</svg>
+			<Image
+				class="machine"
+				src={computer}
+				alt=""
+				widths={[320, 560]}
+				sizes="(min-width: 1024px) 260px, 60vw"
+			/>
 		</div>
 	</div>
 
@@ -100,6 +112,44 @@ const logos = await Promise.all(
 		gap: var(--space-3);
 		align-content: start;
 		max-width: 34rem;
+	}
+
+	/* A small extra: the computer stands on an ink blob, both drifting apart
+	 * slightly under the pointer, like the portrait of the hero. */
+	.computer {
+		--pointer-x: 0;
+		--pointer-y: 0;
+
+		position: relative;
+		width: min(60%, 260px);
+		aspect-ratio: 1;
+	}
+
+	/* Laid flat under the base of the computer, like a ground it stands on. */
+	.blob {
+		position: absolute;
+		top: 43%;
+		left: 0%;
+		width: 94%;
+		height: auto;
+		overflow: visible;
+		transform: rotate(-3deg);
+	}
+
+	.blob path {
+		fill: var(--color-accent);
+	}
+
+	/* Black and white at rest, back to colour under the pointer. */
+	.machine {
+		position: relative;
+		width: 100%;
+		filter: grayscale(1) contrast(1.1);
+		transition: filter 0.7s var(--ease);
+	}
+
+	.computer:hover .machine {
+		filter: grayscale(0) contrast(1);
 	}
 
 	.clients {
@@ -162,6 +212,14 @@ const logos = await Promise.all(
 			grid-column: 8 / span 4;
 		}
 
+		/* Bottom left, in the space left under the facts. */
+		.computer {
+			grid-column: 1 / span 3;
+			grid-row: 2;
+			width: min(100%, 260px);
+			margin-top: calc(var(--space-9) * -1);
+		}
+
 		.clients {
 			grid-template-columns: repeat(12, minmax(0, 1fr));
 			column-gap: var(--column-gap);
@@ -175,6 +233,44 @@ const logos = await Promise.all(
 		.clients ul {
 			grid-column: 4 / span 9;
 			justify-content: space-between;
+		}
+	}
+
+	/* Once revealed, the blob lands and the computer settles, as in the hero. */
+	@keyframes land {
+		from {
+			opacity: 0;
+			scale: 0.8;
+			rotate: -12deg;
+		}
+	}
+
+	@keyframes settle {
+		from {
+			opacity: 0;
+			scale: 0.94;
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		:global(.js) .computer.is-visible .blob {
+			animation: land 1.2s var(--ease) var(--delay) both;
+		}
+
+		:global(.js) .computer.is-visible .machine {
+			animation: settle 1.1s var(--ease) calc(var(--delay) + 0.15s) both;
+		}
+
+		.blob {
+			transition: translate 0.9s var(--ease);
+			translate: calc(var(--pointer-x) * -3px) calc(var(--pointer-y) * -2px);
+		}
+
+		.machine {
+			transition:
+				filter 0.7s var(--ease),
+				translate 0.9s var(--ease);
+			translate: calc(var(--pointer-x) * 4px) calc(var(--pointer-y) * 3px);
 		}
 	}
 </style>
