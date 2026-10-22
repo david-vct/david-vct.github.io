@@ -1,0 +1,117 @@
+---
+import { services } from "../../data/services"
+import SectionHeading from "../components/SectionHeading.astro"
+---
+
+<section class="section container" id="services">
+	<SectionHeading title="Services" stroke={0}>
+		<p>Deux façons de travailler ensemble, selon que votre produit reste à construire ou qu’une équipe le développe déjà.</p>
+	</SectionHeading>
+
+	<div class="services">
+		{
+			services.map((service, index) => (
+				<article class:list={["service grid", { "service--mirrored": index % 2 === 1 }]} data-reveal>
+					<h3>{service.title}</h3>
+					<div class="body">
+						<p class="description">{service.description}</p>
+						<ul class="items">
+							{service.items.map((item) => <li>{item}</li>)}
+						</ul>
+						{service.technologies && (
+							<ul class="technologies label muted">
+								{service.technologies.map((technology) => <li>{technology}</li>)}
+							</ul>
+						)}
+					</div>
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.service {
+		row-gap: var(--space-5);
+		padding-block: var(--space-6) var(--space-9);
+		border-top: var(--rule-thick) solid var(--color-contrast);
+	}
+
+	.service:last-child {
+		padding-bottom: 0;
+	}
+
+	h3 {
+		font-size: var(--text-3xl);
+		line-height: 1.05;
+	}
+
+	.description {
+		max-width: 36rem;
+		margin-bottom: var(--space-5);
+		font-size: var(--text-lg);
+		line-height: 1.36;
+	}
+
+	.items {
+		display: grid;
+		gap: var(--space-2);
+		max-width: 36rem;
+	}
+
+	/* Square bullets in the accent colour. */
+	.items li {
+		position: relative;
+		padding-left: var(--space-6);
+	}
+
+	.items li::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 0.5em;
+		height: 0.5em;
+		background: var(--color-accent);
+	}
+
+	.technologies {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1) var(--space-5);
+		margin-top: var(--space-5);
+	}
+
+	@media (min-width: 768px) {
+		h3 {
+			font-size: var(--text-4xl);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.service:not(:last-child) {
+			padding-bottom: var(--space-10);
+		}
+
+		h3 {
+			grid-column: 1 / span 5;
+			grid-row: 1;
+			font-size: clamp(var(--text-4xl), 1rem + 3vw, 4.5rem);
+		}
+
+		.body {
+			grid-column: 7 / span 6;
+			grid-row: 1;
+			padding-top: var(--space-3);
+		}
+
+		/* Every other service swaps sides, so the titles zigzag down the page. */
+		.service--mirrored h3 {
+			grid-column: 8 / span 5;
+		}
+
+		.service--mirrored .body {
+			grid-column: 1 / span 6;
+		}
+	}
+</style>

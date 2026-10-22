@@ -1,0 +1,81 @@
+---
+// Title of a section, underlined by a marker stroke, with an optional
+// introduction set beside it on wide screens.
+import { underlines } from "../shapes"
+import Scribble from "./Scribble.astro"
+
+interface Props {
+	title: string
+	/** Which of the hand-drawn underlines to use, so neighbours differ. */
+	stroke: number
+}
+
+const { title, stroke } = Astro.props
+const hasIntro = Astro.slots.has("default")
+---
+
+<div class="heading grid">
+	<h2 data-reveal>
+		<span class="title">
+			{title}
+			<Scribble class="underline" shape={underlines[stroke % underlines.length]} width={7} />
+		</span>
+	</h2>
+	{
+		hasIntro && (
+			<div class="intro" data-reveal style="--delay: 0.12s">
+				<slot />
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.heading {
+		row-gap: var(--space-6);
+		margin-bottom: var(--space-9);
+	}
+
+	h2 {
+		font-size: var(--text-section);
+		line-height: 0.92;
+	}
+
+	.title {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Scoped styles do not reach a class handed to a child component. */
+	.title :global(.underline) {
+		position: absolute;
+		left: -2%;
+		bottom: -0.16em;
+		width: 104%;
+		height: auto;
+		color: var(--color-accent);
+	}
+
+	.intro {
+		max-width: 34rem;
+		color: var(--color-muted);
+		font-size: var(--text-md);
+	}
+
+	@media (min-width: 1024px) {
+		.heading {
+			align-items: end;
+			margin-bottom: var(--space-10);
+		}
+
+		h2 {
+			grid-column: 1 / span 8;
+		}
+
+		.intro {
+			grid-column: 9 / span 4;
+			font-size: var(--text-lg);
+			line-height: 1.45;
+		}
+	}
+</style>

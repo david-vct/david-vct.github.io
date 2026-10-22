@@ -8,7 +8,7 @@ Site statique généré avec [Astro](https://astro.build).
 
 | URL             | Source                       | Style                                   |
 | --------------- | ---------------------------- | --------------------------------------- |
-| `/`             | `src/pages/index.astro`      | Aucun pour l'instant                    |
+| `/`             | `src/pages/index.astro`      | Portfolio (`src/home/`)                 |
 | `/cv/academic/` | `src/pages/cv/academic.astro` | CV au style académique (`src/cv-academic/`) |
 
 ## Organisation du code
@@ -20,6 +20,13 @@ src/
 ├── lib/dates.ts   Formatage des dates en français, partagé
 ├── layouts/
 │   └── Base.astro Squelette HTML et métadonnées, sans aucun style
+├── home/          Tout ce qui est propre au portfolio (page d'accueil)
+│   ├── Layout.astro    Layout du portfolio ; seul point d'import de ses styles et polices
+│   ├── theme.css       Les couleurs, et rien d'autre
+│   ├── styles.css      Échelles, base, boutons, apparitions au défilement
+│   ├── shapes.ts       Tracés des formes dessinées à la main
+│   ├── components/     En-tête, pied de page, titres, traits, captures…
+│   └── sections/       Une section du portfolio par fichier
 ├── cv-academic/   Tout ce qui est propre au CV académique
 │   ├── Layout.astro    Layout du CV ; seul point d'import de styles.css
 │   ├── styles.css      Feuille de style du CV
@@ -42,9 +49,20 @@ Tout le contenu se trouve dans `src/data/`, séparé du rendu :
 | `education.ts`  | Formation                                       |
 | `projects.ts`   | Travaux, groupés, avec leurs figures            |
 | `skills.ts`     | Compétences                                     |
+| `services.ts`   | Services proposés (portfolio)                   |
+| `clients.ts`    | Clients et leurs logos (portfolio)              |
 
 - Les dates s'écrivent `"2023-09"` (mois) ou `"2021"` (année) ; une période sans `end` est en cours. Le formatage en français est fait dans `src/lib/dates.ts`.
 - Les images vont dans `src/assets/projects/` et sont importées dans `projects.ts` ; Astro les convertit en WebP aux bonnes tailles. Les GIF animés sont servis tels quels.
+
+## Portfolio
+
+- L'ordre des sections est défini dans `src/pages/index.astro` : accueil, présentation, services, projets (travaux `products`), laboratoire (travaux `personal`), parcours, contact. Les liens de l'en-tête sont dans `src/home/navigation.ts`.
+- **Couleurs** : tout est dans `src/home/theme.css`. Fond noir, texte blanc, une couleur d'accent. Si l'accent choisi est sombre, passer `--color-on-accent` en blanc.
+- Polices : Instrument Serif pour les titres, Archivo (variable, avec un axe de largeur) pour le texte. Elles sont déclarées dans `astro.config.mjs`, qui gère le préchargement et des polices de secours aux métriques ajustées. Elles ne sont chargées que par `src/home/Layout.astro`.
+- Les logos des clients sont dessinés en masque : seule leur forme compte, la couleur vient du thème. Il faut donc un fond transparent (SVG ou PNG avec transparence).
+- Les formes organiques sont des tracés SVG (`shapes.ts`). Le filtre de `components/InkFilters.astro` leur donne un bord irrégulier et du grain.
+- Animations : une séquence au chargement de l'accueil, puis des apparitions au défilement, déclenchées par l'attribut `data-reveal` (script en ligne de `Layout.astro`). Sans JavaScript ou avec `prefers-reduced-motion`, tout est affiché d'emblée.
 
 ## CV académique
 

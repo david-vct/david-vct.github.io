@@ -1,22 +1,37 @@
 ---
+import { getImage } from "astro:assets"
+import portraitSource from "../assets/portrait.webp"
 import { profile } from "../data/profile"
-import Base from "../layouts/Base.astro"
+import Footer from "../home/components/Footer.astro"
+import Header from "../home/components/Header.astro"
+import Layout from "../home/Layout.astro"
+import About from "../home/sections/About.astro"
+import Career from "../home/sections/Career.astro"
+import Contact from "../home/sections/Contact.astro"
+import Hero from "../home/sections/Hero.astro"
+import Lab from "../home/sections/Lab.astro"
+import Projects from "../home/sections/Projects.astro"
+import Services from "../home/sections/Services.astro"
+
+// The portrait is drawn inside an SVG, which has no srcset: one size serves
+// every screen, about twice its largest display width.
+const portrait = await getImage({ src: portraitSource, width: 960, format: "webp", quality: 72 })
 ---
 
-<Base title={profile.name} description={profile.description}>
+<Layout
+	title={`${profile.name}, développeur web et mobile indépendant`}
+	description="David Vicente, ingénieur logiciel indépendant à Toulouse : conception et développement d’applications web et mobiles pour les PME et les startups, renfort d’équipes de développement."
+	preloadImage={portrait.src}
+>
+	<Header />
 	<main>
-		<h1>{profile.name}</h1>
-		<p>{profile.title}</p>
-		<ul>
-			<li><a href="/cv/academic/">Curriculum vitae</a></li>
-			<li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-			{
-				profile.links.map((link) => (
-					<li>
-						<a href={link.href}>{link.label}</a>
-					</li>
-				))
-			}
-		</ul>
+		<Hero portrait={portrait} />
+		<About />
+		<Services />
+		<Projects />
+		<Lab />
+		<Career />
+		<Contact />
 	</main>
-</Base>
+	<Footer />
+</Layout>

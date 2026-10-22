@@ -1,0 +1,114 @@
+---
+import { projectGroups } from "../../data/projects"
+import { formatPeriod } from "../../lib/dates"
+import Figures from "../components/Figures.astro"
+import SectionHeading from "../components/SectionHeading.astro"
+import { linkLabel } from "../links"
+
+const projects = projectGroups.find((group) => group.id === "products")?.projects ?? []
+---
+
+<section class="section container" id="projets">
+	<SectionHeading title="Projets" stroke={1}>
+		<p>Des produits conçus et développés pour des clients, de la maquette à la mise en ligne.</p>
+	</SectionHeading>
+
+	{
+		projects.map((project) => (
+			<article class="project grid" id={project.id}>
+				<header class="head" data-reveal>
+					<h3>{project.title}</h3>
+					<p class="meta label">
+						<span>{project.kind}</span>
+						<span class="muted">{formatPeriod(project.period)}</span>
+					</p>
+				</header>
+				<div class="text" data-reveal style="--delay: 0.1s">
+					<p>{project.description}</p>
+					<ul class="technologies label muted">
+						{project.technologies.map((technology) => <li>{technology}</li>)}
+					</ul>
+					{project.links && (
+						<div class="buttons">
+							{project.links.map((link) => (
+								<a class="button button--secondary button--small" href={link.href}>
+									{linkLabel(link)}
+								</a>
+							))}
+						</div>
+					)}
+				</div>
+				{project.figures && (
+					<div class="strip" data-reveal style="--delay: 0.2s">
+						<Figures figures={project.figures} project={project.title} span={60} />
+					</div>
+				)}
+			</article>
+		))
+	}
+</section>
+
+<style>
+	.project {
+		row-gap: var(--space-6);
+		padding-block: var(--space-5) var(--space-10);
+		border-top: var(--rule-thick) solid var(--color-contrast);
+	}
+
+	.project:last-child {
+		padding-bottom: 0;
+	}
+
+	.head {
+		display: grid;
+		gap: var(--space-3);
+	}
+
+	h3 {
+		font-size: clamp(var(--text-4xl), 1rem + 6vw, 7.5rem);
+		line-height: 0.95;
+	}
+
+	.meta {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.text {
+		display: grid;
+		gap: var(--space-5);
+		align-content: start;
+		max-width: 36rem;
+	}
+
+	.technologies {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1) var(--space-4);
+	}
+
+	@media (min-width: 1024px) {
+		.head {
+			grid-column: 1 / -1;
+			grid-template-columns: subgrid;
+			align-items: end;
+		}
+
+		h3 {
+			grid-column: 1 / span 8;
+		}
+
+		.meta {
+			grid-column: 9 / span 4;
+			padding-bottom: 0.5em;
+		}
+
+		.text {
+			grid-column: 1 / span 4;
+		}
+
+		.strip {
+			grid-column: 6 / span 7;
+		}
+	}
+</style>

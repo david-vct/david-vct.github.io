@@ -1,0 +1,87 @@
+---
+import { profile } from "../../data/profile"
+import Scribble from "../components/Scribble.astro"
+import { loop } from "../shapes"
+---
+
+<section class="contact on-accent grain" id="contact">
+	<div class="container grid">
+		<h2 data-reveal>Un projet en tête&nbsp;? Parlons-en.</h2>
+		<div class="body" data-reveal style="--delay: 0.15s">
+			<p class="lead">
+				Un nouveau produit à lancer, une équipe à renforcer ou une idée à mettre à l’épreuve :
+				écrivez-moi, on en discute.
+			</p>
+			<a class="email" href={`mailto:${profile.email}`}>
+				{profile.email}
+				<Scribble class="loop" shape={loop} width={4} stretch />
+			</a>
+			<div class="buttons">
+				<a class="button" href={`mailto:${profile.email}`}>Écrire un e-mail</a>
+				{profile.links.map((link) => (
+					<a class="button button--secondary" href={link.href}>
+						{link.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact {
+		padding-block: var(--section-space);
+	}
+
+	.grid {
+		row-gap: var(--space-8);
+	}
+
+	h2 {
+		font-size: var(--text-section);
+		line-height: 0.92;
+	}
+
+	.body {
+		display: grid;
+		gap: var(--space-7);
+		justify-items: start;
+		align-content: end;
+	}
+
+	.lead {
+		max-width: 30rem;
+		font-size: var(--text-lg);
+		line-height: 1.36;
+	}
+
+	.email {
+		position: relative;
+		display: inline-block;
+		font-size: clamp(var(--text-lg), 1rem + 2vw, var(--text-2xl));
+		font-stretch: 115%;
+		font-weight: 600;
+		text-decoration: none;
+		overflow-wrap: anywhere;
+	}
+
+	/* Scoped styles do not reach a class handed to a child component. */
+	.email :global(.loop) {
+		position: absolute;
+		top: -40%;
+		left: -9%;
+		width: 118%;
+		max-width: none;
+		height: 180%;
+	}
+
+	@media (min-width: 1024px) {
+		h2 {
+			grid-column: 1 / span 8;
+		}
+
+		.body {
+			grid-column: 9 / span 4;
+		}
+	}
+</style>

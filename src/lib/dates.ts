@@ -41,5 +41,13 @@ const longMonthFormatter = new Intl.DateTimeFormat("fr-FR", {
 	year: "numeric",
 })
 
+/** Whole years elapsed since a date, at build time. */
+export const yearsSince = (value: DateValue, now: Date = new Date()): number => {
+	const { year, month = 1 } = parse(value)
+	const months =
+		(now.getUTCFullYear() - Number(year)) * 12 + now.getUTCMonth() + 1 - month
+	return Math.floor(months / 12)
+}
+
 /** "octobre 2026" */
 export const formatMonthYear = (date: Date) => longMonthFormatter.format(date)

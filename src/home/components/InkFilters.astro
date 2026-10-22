@@ -1,0 +1,53 @@
+---
+// SVG filters giving the organic shapes their hand-made look: the edge is
+// displaced by low-frequency noise, then speckled with grain in the base
+// colour. Rendered once per page, referenced by id.
+---
+
+<svg class="ink-filters" width="0" height="0" aria-hidden="true" focusable="false">
+	<filter id="ink" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+		<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="warp"></feTurbulence>
+		<feDisplacementMap in="SourceGraphic" in2="warp" scale="9" xChannelSelector="R" yChannelSelector="G" result="shape"></feDisplacementMap>
+		<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="noise"></feTurbulence>
+		<feColorMatrix in="noise" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -2.9" result="speckles"></feColorMatrix>
+		<feFlood class="ink-flood" result="ink"></feFlood>
+		<feComposite in="ink" in2="speckles" operator="in" result="grain"></feComposite>
+		<feComposite in="grain" in2="shape" operator="in" result="grain-in-shape"></feComposite>
+		<feMerge>
+			<feMergeNode in="shape"></feMergeNode>
+			<feMergeNode in="grain-in-shape"></feMergeNode>
+		</feMerge>
+	</filter>
+
+	<filter id="ink-photo" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+		<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="11" result="warp"></feTurbulence>
+		<feDisplacementMap in="SourceGraphic" in2="warp" scale="9" xChannelSelector="R" yChannelSelector="G" result="shape"></feDisplacementMap>
+		<feColorMatrix in="shape" type="saturate" values="0" result="grey"></feColorMatrix>
+		<feComponentTransfer in="grey" result="photo">
+			<feFuncR type="linear" slope="1.35" intercept="-0.14"></feFuncR>
+			<feFuncG type="linear" slope="1.35" intercept="-0.14"></feFuncG>
+			<feFuncB type="linear" slope="1.35" intercept="-0.14"></feFuncB>
+		</feComponentTransfer>
+		<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="2" result="noise"></feTurbulence>
+		<feColorMatrix in="noise" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -3.25" result="speckles"></feColorMatrix>
+		<feFlood class="ink-flood" result="ink"></feFlood>
+		<feComposite in="ink" in2="speckles" operator="in" result="grain"></feComposite>
+		<feComposite in="grain" in2="shape" operator="in" result="grain-in-shape"></feComposite>
+		<feMerge>
+			<feMergeNode in="photo"></feMergeNode>
+			<feMergeNode in="grain-in-shape"></feMergeNode>
+		</feMerge>
+	</filter>
+
+	<filter id="ink-line" x="-4%" y="-40%" width="108%" height="180%">
+		<feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="6" result="warp"></feTurbulence>
+		<feDisplacementMap in="SourceGraphic" in2="warp" scale="4" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+	</filter>
+</svg>
+
+<style>
+	.ink-filters {
+		position: absolute;
+		pointer-events: none;
+	}
+</style>

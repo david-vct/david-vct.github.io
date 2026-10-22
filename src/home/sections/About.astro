@@ -1,0 +1,153 @@
+---
+import { getImage } from "astro:assets"
+import { clients } from "../../data/clients"
+import { experience } from "../../data/experience"
+import { profile } from "../../data/profile"
+import { yearsSince } from "../../lib/dates"
+
+// Experience counts from the first work-study contract.
+const firstJob = experience.filter((job) => job.contract === "Alternance").at(-1) ?? experience[0]
+const years = yearsSince(firstJob.period.start)
+const freelanceSince = experience[0].period.start.slice(0, 4)
+
+// Logos are drawn as masks, so only their shape is kept and the colour comes
+// from the theme. SVGs are used as they are, bitmaps are resized. Heights
+// shrink as logos widen, so they all weigh about the same.
+const logos = await Promise.all(
+	clients.map(async ({ name, logo }) => ({
+		name,
+		ratio: logo.width / logo.height,
+		height: Math.round(68 / Math.sqrt(logo.width / logo.height)),
+		src:
+			logo.format === "svg"
+				? logo.src
+				: (await getImage({ src: logo, height: 112, format: "webp" })).src,
+	})),
+)
+---
+
+<section class="about section container" aria-label="Présentation">
+	<div class="grid">
+		<dl class="facts label" data-reveal>
+			<div><dt class="muted">Basé à</dt><dd>{profile.location}</dd></div>
+			<div><dt class="muted">Indépendant depuis</dt><dd>{freelanceSince}</dd></div>
+			<div><dt class="muted">Expérience</dt><dd>{years} ans</dd></div>
+		</dl>
+		<p class="statement" data-reveal style="--delay: 0.1s">
+			Ingénieur logiciel depuis {years} ans, je travaille surtout dans l’écosystème TypeScript : React,
+			Next.js et React Native côté client, Node.js côté serveur.
+		</p>
+		<p class="story muted" data-reveal style="--delay: 0.2s">{profile.summary[1]}</p>
+	</div>
+
+	<div class="clients" data-reveal>
+		<h2 class="label">Ils m’ont fait confiance</h2>
+		<ul>
+			{
+				logos.map((logo) => (
+					<li>
+						<span
+							class="logo"
+							role="img"
+							aria-label={logo.name}
+							style={`--logo: url("${logo.src}"); --ratio: ${logo.ratio}; --height: ${logo.height}px`}
+						/>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.grid {
+		row-gap: var(--space-8);
+	}
+
+	.facts {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+		gap: var(--space-4) var(--space-6);
+		align-content: start;
+	}
+
+	.facts dd {
+		font-size: var(--text-md);
+	}
+
+	.statement {
+		font-family: var(--font-serif);
+		font-size: var(--text-2xl);
+		line-height: 1.15;
+		text-wrap: balance;
+	}
+
+	.story {
+		max-width: 40rem;
+	}
+
+	.clients {
+		display: grid;
+		gap: var(--space-5);
+		margin-top: var(--space-10);
+		padding-top: var(--space-5);
+		border-top: var(--rule-thick) solid var(--color-contrast);
+	}
+
+	.clients ul {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-6) var(--space-8);
+	}
+
+	/* Logos keep their shape only, painted in the text colour. */
+	.logo {
+		display: block;
+		height: var(--height);
+		width: calc(var(--height) * var(--ratio));
+		background: var(--color-contrast);
+		mask-image: var(--logo);
+		mask-position: left center;
+		mask-size: contain;
+		mask-repeat: no-repeat;
+	}
+
+	@media (min-width: 768px) {
+		.statement {
+			font-size: var(--text-4xl);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.facts {
+			grid-column: 1 / span 3;
+			grid-template-columns: 1fr;
+		}
+
+		.statement {
+			grid-column: 4 / span 9;
+			font-size: clamp(var(--text-4xl), 1rem + 3.4vw, 4.5rem);
+			line-height: 1.08;
+		}
+
+		.story {
+			grid-column: 7 / span 5;
+		}
+
+		.clients {
+			grid-template-columns: repeat(12, minmax(0, 1fr));
+			column-gap: var(--column-gap);
+			align-items: center;
+		}
+
+		.clients h2 {
+			grid-column: 1 / span 3;
+		}
+
+		.clients ul {
+			grid-column: 4 / span 9;
+			justify-content: space-between;
+		}
+	}
+</style>

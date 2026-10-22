@@ -1,0 +1,218 @@
+---
+import type { GetImageResult } from "astro"
+import { profile } from "../../data/profile"
+import { accentBlob, portraitBlob } from "../shapes"
+
+interface Props {
+	/** Optimised portrait, also preloaded by the layout. */
+	portrait: GetImageResult
+}
+
+const { portrait } = Astro.props
+const [firstName, ...lastNames] = profile.name.split(" ")
+---
+
+<section class="hero container grid" id="top">
+	<p class="role label">
+		<span>{profile.title}</span>
+		<span class="muted">Indépendant, {profile.location}</span>
+	</p>
+
+	<h1 class="name">
+		<span class="line"><span>{firstName}</span></span>{" "}
+		<span class="line line--offset"><span>{lastNames.join(" ")}</span></span>
+	</h1>
+
+	<div class="portrait">
+		<svg class="accent" viewBox={accentBlob.viewBox} aria-hidden="true" focusable="false">
+			<g filter="url(#ink)"><path d={accentBlob.d}></path></g>
+		</svg>
+		<svg class="photo" viewBox={portraitBlob.viewBox} role="img" aria-label={`Portrait de ${profile.name}`}>
+			<clipPath id="portrait-clip"><path d={portraitBlob.d}></path></clipPath>
+			<g filter="url(#ink-photo)">
+				<image
+					href={portrait.src}
+					width="500"
+					height="560"
+					preserveAspectRatio="xMidYMid slice"
+					clip-path="url(#portrait-clip)"></image>
+			</g>
+		</svg>
+	</div>
+
+	<div class="pitch">
+		<p class="lead">
+			Je conçois des applications web et mobiles pour les PME et les startups, et je renforce
+			les équipes qui les développent.
+		</p>
+		<div class="buttons">
+			<a class="button" href="#contact">Me contacter</a>
+			<a class="button button--secondary" href="#projets">Voir les projets</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		min-height: 100svh;
+		align-content: center;
+		row-gap: var(--space-6);
+		padding-top: calc(var(--header-height) + var(--space-8));
+		padding-bottom: var(--space-9);
+	}
+
+	.role {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.name {
+		position: relative;
+		z-index: 1;
+		font-size: var(--text-hero);
+		line-height: 0.8;
+		letter-spacing: -0.02em;
+	}
+
+	/* Each line is a window the word rises through on load. */
+	.line {
+		display: block;
+		overflow: clip;
+		padding-block: 0.04em 0.1em;
+		margin-bottom: -0.1em;
+	}
+
+	.line > span {
+		display: inline-block;
+	}
+
+	.line--offset {
+		padding-left: 0.6em;
+	}
+
+	.portrait {
+		position: relative;
+		justify-self: end;
+		width: min(82%, 440px);
+		aspect-ratio: 500 / 560;
+	}
+
+	.portrait svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		overflow: visible;
+	}
+
+	.accent {
+		transform: translate(-9%, 6%) rotate(-6deg);
+	}
+
+	.accent path {
+		fill: var(--color-accent);
+	}
+
+	.lead {
+		max-width: 32ch;
+		margin-bottom: var(--space-6);
+		font-size: var(--text-lg);
+		line-height: 1.36;
+	}
+
+	@media (min-width: 768px) {
+		.lead {
+			font-size: var(--text-xl);
+			line-height: 1.29;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.hero {
+			grid-template-rows: auto auto auto;
+			row-gap: var(--space-7);
+		}
+
+		.role {
+			grid-column: 1 / span 6;
+			grid-row: 1;
+		}
+
+		.name {
+			grid-column: 1 / span 9;
+			grid-row: 2;
+		}
+
+		.line--offset {
+			padding-left: 1.1em;
+		}
+
+		.portrait {
+			grid-column: 8 / span 5;
+			grid-row: 1 / span 3;
+			align-self: center;
+			width: 100%;
+		}
+
+		.pitch {
+			grid-column: 1 / span 6;
+			grid-row: 3;
+		}
+	}
+
+	/* Load sequence: the name rises, the blob lands, the photo settles, then
+	 * the text. */
+	@keyframes rise {
+		from {
+			translate: 0 105%;
+		}
+	}
+
+	@keyframes land {
+		from {
+			opacity: 0;
+			scale: 0.8;
+			rotate: -12deg;
+		}
+	}
+
+	@keyframes settle {
+		from {
+			opacity: 0;
+			scale: 0.94;
+		}
+	}
+
+	@keyframes fade-up {
+		from {
+			opacity: 0;
+			translate: 0 1.5rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.line > span {
+			animation: rise 1s var(--ease) 0.1s both;
+		}
+
+		.line--offset > span {
+			animation-delay: 0.22s;
+		}
+
+		.accent {
+			animation: land 1.2s var(--ease) 0.25s both;
+		}
+
+		.photo {
+			animation: settle 1.1s var(--ease) 0.4s both;
+		}
+
+		.role {
+			animation: fade-up 0.8s var(--ease) 0.55s both;
+		}
+
+		.pitch {
+			animation: fade-up 0.8s var(--ease) 0.7s both;
+		}
+	}
+</style>

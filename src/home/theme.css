@@ -1,0 +1,19 @@
+/*
+ * Couleurs de la page d'accueil : c'est le seul endroit où elles sont définies.
+ *
+ * --color-base      fond de la page, texte posé sur l'accent
+ * --color-contrast  texte, filets, logos, fond des projets du laboratoire
+ * --color-accent    boutons principaux, formes organiques, section contact
+ * --color-on-accent texte posé sur l'accent ; à passer en blanc si l'accent
+ *                   choisi est sombre (un bleu ou un rouge profond, par exemple)
+ */
+:root {
+	--color-base: #000000;
+	--color-contrast: #ffffff;
+	--color-accent: #ffe500;
+	--color-on-accent: #000000;
+
+	/* Nuances dérivées des couleurs ci-dessus, inutile d'y toucher. */
+	--color-muted: color-mix(in srgb, var(--color-contrast) 66%, var(--color-base));
+	--color-rule: color-mix(in srgb, var(--color-contrast) 28%, var(--color-base));
+}

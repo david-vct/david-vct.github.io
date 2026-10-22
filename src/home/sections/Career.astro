@@ -1,0 +1,183 @@
+---
+import { education } from "../../data/education"
+import { experience } from "../../data/experience"
+import { skills } from "../../data/skills"
+import { formatPeriod } from "../../lib/dates"
+import Scribble from "../components/Scribble.astro"
+import SectionHeading from "../components/SectionHeading.astro"
+import { careerLine, dot } from "../shapes"
+
+const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join(", ")
+---
+
+<section class="section container" id="parcours">
+	<SectionHeading title="Parcours" stroke={3}>
+		<p>
+			Deux ans d’alternance, puis l’indépendance. Le détail est dans le <a href="/cv/academic/">curriculum vitae</a>.
+		</p>
+	</SectionHeading>
+
+	<div class="grid columns">
+		<div class="experience">
+			<h3 class="label muted">Expérience</h3>
+			<div class="timeline">
+				<div class="line" data-reveal>
+					<Scribble shape={careerLine} width={3} stretch />
+				</div>
+				<ol>
+					{
+						experience.map((job) => (
+							<li class="entry" data-reveal>
+								<svg class="dot" viewBox={dot.viewBox} aria-hidden="true" focusable="false">
+									<path d={dot.d} />
+								</svg>
+								<p class="label muted">{formatPeriod(job.period)}</p>
+								<h4>{job.role}</h4>
+								<p class="label">{where(job.organization, job.contract.toLowerCase(), job.location)}</p>
+								<ul class="items">
+									{job.items.map((item) => <li>{item}</li>)}
+								</ul>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</div>
+
+		<div class="side">
+			<div data-reveal>
+				<h3 class="label muted">Formation</h3>
+				<ol class="studies">
+					{
+						education.map((study) => (
+							<li>
+								<p class="label muted">{formatPeriod(study.period)}</p>
+								<h4>{study.degree}</h4>
+								<p class="label">{where(study.field, study.institution)}</p>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+
+			<div data-reveal>
+				<h3 class="label muted">Compétences</h3>
+				<dl class="skills">
+					{
+						skills.map((group) => (
+							<div>
+								<dt class="label muted">{group.label}</dt>
+								<dd>{group.items.join(", ")}</dd>
+							</div>
+						))
+					}
+				</dl>
+			</div>
+
+			<a class="button button--secondary" href="/cv/academic/" data-reveal>Lire le CV complet</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.columns {
+		row-gap: var(--space-10);
+	}
+
+	h3 {
+		margin-bottom: var(--space-5);
+		padding-bottom: var(--space-3);
+		border-bottom: var(--rule) solid var(--color-rule);
+	}
+
+	h4 {
+		font-size: var(--text-xl);
+		line-height: 1.1;
+	}
+
+	.timeline {
+		position: relative;
+	}
+
+	.line {
+		position: absolute;
+		top: 0.5rem;
+		bottom: 0;
+		left: 0;
+		width: 24px;
+		color: var(--color-contrast);
+	}
+
+	.line :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	ol {
+		display: grid;
+		gap: var(--space-9);
+	}
+
+	.entry {
+		position: relative;
+		display: grid;
+		gap: var(--space-2);
+		padding-left: var(--space-9);
+	}
+
+	.dot {
+		position: absolute;
+		top: 0;
+		left: -4px;
+		width: 32px;
+		height: 32px;
+		fill: var(--color-accent);
+	}
+
+	.items {
+		display: grid;
+		gap: var(--space-1);
+		margin-top: var(--space-2);
+		color: var(--color-muted);
+	}
+
+	.side {
+		display: grid;
+		gap: var(--space-9);
+		align-content: start;
+		justify-items: start;
+	}
+
+	.side > div {
+		width: 100%;
+	}
+
+	.studies {
+		gap: var(--space-5);
+	}
+
+	.studies h4 {
+		font-size: var(--text-lg);
+	}
+
+	.skills {
+		display: grid;
+		gap: var(--space-4);
+	}
+
+	@media (min-width: 768px) {
+		h4 {
+			font-size: var(--text-2xl);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.experience {
+			grid-column: 1 / span 7;
+		}
+
+		.side {
+			grid-column: 9 / span 4;
+		}
+	}
+</style>

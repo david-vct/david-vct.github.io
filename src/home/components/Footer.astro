@@ -1,0 +1,42 @@
+---
+import { profile } from "../../data/profile"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="footer">
+	<div class="container footer-inner">
+		<p class="label">© {year} {profile.name}</p>
+		<ul class="label">
+			<li><a href={`mailto:${profile.email}`}>E-mail</a></li>
+			{
+				profile.links.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))
+			}
+			<li><a href="/cv/academic/">CV</a></li>
+			<li><a href="https://github.com/david-vct/david-vct.github.io">Sources du site</a></li>
+		</ul>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		padding-block: var(--space-6);
+	}
+
+	.footer-inner {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: var(--space-4) var(--space-6);
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2) var(--space-5);
+	}
+</style>

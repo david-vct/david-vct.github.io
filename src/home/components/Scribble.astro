@@ -1,0 +1,34 @@
+---
+// A hand-drawn stroke. It draws itself when its nearest [data-reveal]
+// ancestor comes into view (see styles.css).
+import type { Shape } from "../shapes"
+
+interface Props {
+	shape: Shape
+	class?: string
+	/** Stroke width, in the units of the shape's viewBox. */
+	width?: number
+	/** Stretch the shape to its box instead of keeping its proportions. */
+	stretch?: boolean
+}
+
+const { shape, class: className, width = 6, stretch = false } = Astro.props
+// Displacing a stretched stroke jitters it, so those keep their own wobble.
+const filter = stretch ? undefined : "url(#ink-line)"
+---
+
+<svg
+	class:list={["scribble", className]}
+	viewBox={shape.viewBox}
+	preserveAspectRatio={stretch ? "none" : undefined}
+	aria-hidden="true"
+	focusable="false"
+>
+	<g filter={filter}>
+		<path
+			d={shape.d}
+			pathLength="1"
+			stroke-width={width}
+			vector-effect={stretch ? "non-scaling-stroke" : undefined}></path>
+	</g>
+</svg>

@@ -1,0 +1,167 @@
+---
+import { Image } from "astro:assets"
+import { projectGroups } from "../../data/projects"
+import { formatPeriod } from "../../lib/dates"
+import SectionHeading from "../components/SectionHeading.astro"
+import { linkLabel } from "../links"
+
+const projects = projectGroups.find((group) => group.id === "personal")?.projects ?? []
+---
+
+<section class="section container" id="laboratoire">
+	<SectionHeading title="Laboratoire" stroke={2}>
+		<p>Projets personnels et logiciels libres : des outils dont j’avais besoin, et des expériences de code pour le plaisir de chercher.</p>
+	</SectionHeading>
+
+	<ul class="tiles">
+		{
+			projects.map((project, index) => {
+				const cover = project.figures?.[0]
+				return (
+					<li
+						class:list={["tile on-contrast", { "tile--wide": index === 0 }]}
+						id={project.id}
+						data-reveal
+						style={`--delay: ${(index % 3) * 0.08}s`}
+					>
+						{cover && (
+							<Image
+								class="cover"
+								src={cover.image}
+								alt={`${project.title} : ${cover.caption}`}
+								widths={cover.image.format === "gif" ? undefined : [480, 960]}
+								sizes={index === 0 ? "(min-width: 1024px) 56vw, 100vw" : "(min-width: 1024px) 24vw, (min-width: 768px) 50vw, 100vw"}
+								format={cover.image.format === "gif" ? "gif" : "webp"}
+							/>
+						)}
+						<div class="body">
+							<p class="label meta">{formatPeriod(project.period)}</p>
+							<h3>{project.title}</h3>
+							<p class="label">{project.kind}</p>
+							<p class="description">{project.description}</p>
+							<ul class="technologies label meta">
+								{project.technologies.map((technology) => <li>{technology}</li>)}
+							</ul>
+							{project.links && (
+								<div class="buttons">
+									{project.links.map((link) => (
+										<a class="button button--secondary button--small" href={link.href}>
+											{linkLabel(link)}
+										</a>
+									))}
+								</div>
+							)}
+						</div>
+					</li>
+				)
+			})
+		}
+	</ul>
+</section>
+
+<style>
+	.tiles {
+		display: grid;
+		gap: var(--column-gap);
+	}
+
+	/* The only cards of the page: flat fills in the contrast colour. */
+	.tile {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-contrast);
+		color: var(--color-base);
+	}
+
+	/* Covers are mounted inside the card, like prints, so dark screenshots
+	 * keep the card's edge visible. */
+	.cover {
+		width: calc(100% - 2 * var(--space-3));
+		margin: var(--space-3) var(--space-3) 0;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		object-position: top;
+		background: var(--color-rule);
+	}
+
+	.body {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: var(--space-3);
+		padding: var(--space-5);
+	}
+
+	h3 {
+		font-size: var(--text-2xl);
+		line-height: 1.05;
+	}
+
+	.meta {
+		color: color-mix(in srgb, var(--color-base) 66%, var(--color-contrast));
+	}
+
+	.description {
+		margin-top: var(--space-2);
+		font-size: var(--text-base);
+	}
+
+	.technologies {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1) var(--space-4);
+		font-size: var(--text-xs);
+	}
+
+	.buttons {
+		margin-top: auto;
+		padding-top: var(--space-3);
+	}
+
+	@media (min-width: 768px) {
+		.tiles {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.tile--wide {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.tiles {
+			grid-template-columns: repeat(12, minmax(0, 1fr));
+		}
+
+		.tile {
+			grid-column: span 3;
+		}
+
+		/* The first project gets a wide tile, image beside the text. */
+		.tile--wide {
+			display: grid;
+			grid-column: 1 / -1;
+			grid-template-columns: subgrid;
+		}
+
+		.tile--wide .cover {
+			grid-column: 1 / span 7;
+			width: calc(100% - var(--space-5));
+			height: calc(100% - 2 * var(--space-5));
+			margin: var(--space-5) 0 var(--space-5) var(--space-5);
+		}
+
+		.tile--wide .body {
+			grid-column: 8 / span 5;
+			padding: var(--space-6) var(--space-6) var(--space-6) 0;
+		}
+
+		.tile--wide h3 {
+			font-size: var(--text-4xl);
+		}
+
+		.tile--wide .description {
+			font-size: var(--text-md);
+		}
+	}
+</style>

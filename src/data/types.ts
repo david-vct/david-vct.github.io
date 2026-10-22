@@ -65,3 +65,16 @@ export type SkillGroup = {
 	label: string
 	items: string[]
 }
+
+export type Service = {
+	title: string
+	description: string
+	items: string[]
+	technologies?: string[]
+}
+
+export type Client = {
+	name: string
+	/** Single-colour logo on a transparent background: only its shape is kept. */
+	logo: ImageMetadata
+}

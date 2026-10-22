@@ -1,0 +1,90 @@
+---
+// A strip of screenshots at equal height. On small screens it scrolls
+// sideways, one screenshot at a time.
+import { Image } from "astro:assets"
+import type { Figure } from "../../data/types"
+
+interface Props {
+	figures: Figure[]
+	/** Title of the project, used in the alt text. */
+	project: string
+	/** Share of the viewport the strip spans on wide screens, in vw. */
+	span: number
+}
+
+const { figures, project, span } = Astro.props
+const ratioSum = figures.reduce((sum, { image }) => sum + image.width / image.height, 0)
+---
+
+<div class="figures" style={`--ratio-sum: ${ratioSum}`}>
+	{
+		figures.map(({ image, caption }) => {
+			const ratio = image.width / image.height
+			const share = ratio / ratioSum
+			const isAnimated = image.format === "gif"
+			const mobileWidth = ratio < 1 ? 64 : 86
+			return (
+				<figure style={`--ratio: ${ratio}; --mobile-width: ${mobileWidth}vw`}>
+					<Image
+						src={image}
+						alt={`${project} : ${caption}`}
+						widths={isAnimated ? undefined : [360, 720, 1080, 1440].filter((width) => width <= image.width)}
+						sizes={`(min-width: 1024px) ${Math.ceil(share * span)}vw, ${mobileWidth}vw`}
+						format={isAnimated ? "gif" : "webp"}
+					/>
+					<figcaption class="label muted">{caption}</figcaption>
+				</figure>
+			)
+		})
+	}
+</div>
+
+<style>
+	.figures {
+		display: flex;
+		gap: var(--space-3);
+		margin-inline: calc(-1 * var(--gutter));
+		padding-inline: var(--gutter);
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: var(--gutter);
+		scrollbar-width: none;
+	}
+
+	figure {
+		flex: none;
+		width: min(var(--mobile-width), var(--ratio) * 60svh);
+		scroll-snap-align: start;
+	}
+
+	img {
+		width: 100%;
+		aspect-ratio: var(--ratio);
+		object-fit: cover;
+		background: var(--color-rule);
+	}
+
+	figcaption {
+		margin-top: var(--space-2);
+		font-size: var(--text-xs);
+	}
+
+	@media (min-width: 1024px) {
+		/* Tall screenshots would tower over the page: cap the strip's height
+		 * by narrowing it, against the right edge. */
+		.figures {
+			max-width: calc(var(--ratio-sum) * 36rem);
+			gap: var(--space-4);
+			margin-inline: auto 0;
+			padding-inline: 0;
+			overflow: visible;
+		}
+
+		/* Widths follow the aspect ratios, so every image gets the same height. */
+		figure {
+			flex: var(--ratio) 1 0;
+			width: auto;
+			min-width: 0;
+		}
+	}
+</style>
