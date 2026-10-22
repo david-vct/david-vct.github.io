@@ -179,6 +179,52 @@ const logos = await Promise.all(
 		mask-repeat: no-repeat;
 	}
 
+	/* Phones: the computer stands beside the facts, stacked as on wide screens,
+	 * instead of alone at the end of the section. */
+	@media (max-width: 767px) {
+		.grid {
+			grid-template-columns: auto minmax(0, 1fr);
+		}
+
+		.facts {
+			grid-column: 1;
+			grid-row: 1;
+			flex-direction: column;
+		}
+
+		.computer {
+			grid-column: 2;
+			grid-row: 1;
+			align-self: center;
+			justify-self: end;
+			width: min(100%, 200px);
+		}
+
+		.statement,
+		.track {
+			grid-column: 1 / -1;
+		}
+
+		/* Logos on two columns, a little smaller. */
+		.clients ul {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0 var(--column-gap);
+		}
+
+		.clients li {
+			display: flex;
+			align-items: center;
+			min-height: 80px;
+		}
+
+		.logo {
+			max-width: 100%;
+			height: calc(var(--height) * 0.8);
+			width: calc(var(--height) * 0.8 * var(--ratio));
+		}
+	}
+
 	@media (min-width: 768px) {
 		.statement {
 			font-size: var(--text-4xl);

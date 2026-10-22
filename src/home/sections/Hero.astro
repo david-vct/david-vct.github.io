@@ -43,7 +43,7 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 
 	<div class="pitch">
 		<p class="lead">J’aide les PME à créer les applications web et mobiles dont elles ont besoin.</p>
-		<div class="buttons">
+		<div class="buttons buttons--stack">
 			<a class="button" href="#contact">Me contacter</a>
 			<a class="button button--secondary" href="#projets">Voir les projets</a>
 		</div>
@@ -134,6 +134,15 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		margin-bottom: var(--space-6);
 		font-size: var(--text-xl);
 		line-height: 1.25;
+	}
+
+	/* Phones: name and portrait centred. The name shrinks to its widest line,
+	 * so the second one keeps its offset. */
+	@media (max-width: 767px) {
+		.name,
+		.portrait {
+			justify-self: center;
+		}
 	}
 
 	@media (min-width: 768px) {

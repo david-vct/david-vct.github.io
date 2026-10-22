@@ -66,6 +66,18 @@ const hasIntro = Astro.slots.has("default")
 		font-size: var(--text-md);
 	}
 
+	/* The introduction only shows beside the title: once they would stack, it
+	 * is dropped and the title moves closer to the rule below. */
+	@media (max-width: 1023px) {
+		.heading {
+			margin-bottom: var(--space-6);
+		}
+
+		.intro {
+			display: none;
+		}
+	}
+
 	@media (min-width: 1024px) {
 		.heading {
 			align-items: end;

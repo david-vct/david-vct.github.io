@@ -304,6 +304,15 @@ a:hover {
 	gap: var(--space-3) var(--space-4);
 }
 
+/* Main calls to action: one full-width button per line on phones, where
+ * wrapped buttons of uneven widths look ragged. */
+@media (max-width: 767px) {
+	.buttons--stack {
+		display: grid;
+		justify-self: stretch;
+	}
+}
+
 /* Grain laid over a surface, in the base colour. */
 .grain {
 	position: relative;

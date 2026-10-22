@@ -78,6 +78,24 @@ import { navigation } from "../navigation"
 		text-decoration-thickness: var(--rule-thick);
 	}
 
+	/* Phones: the name stays on one line beside the button. On the narrowest
+	 * screens, the icon makes way for it. */
+	@media (max-width: 767px) {
+		.header-inner {
+			gap: var(--space-4);
+		}
+
+		.name {
+			white-space: nowrap;
+		}
+	}
+
+	@media (max-width: 339px) {
+		.icon {
+			display: none;
+		}
+	}
+
 	@media (min-width: 900px) {
 		nav {
 			display: block;

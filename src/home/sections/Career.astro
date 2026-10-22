@@ -159,6 +159,13 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 		gap: var(--space-4);
 	}
 
+	/* Phones: a narrower indent leaves more room to the text of each entry. */
+	@media (max-width: 767px) {
+		.entry {
+			padding-left: var(--space-8);
+		}
+	}
+
 	@media (min-width: 768px) {
 		h4 {
 			font-size: var(--text-2xl);

@@ -16,7 +16,7 @@ import { underlines } from "../shapes"
 				{profile.email}
 				<Scribble class="underline" shape={underlines[1]} weight="0.09em" />
 			</a>
-			<div class="buttons">
+			<div class="buttons buttons--stack">
 				<a class="button" href={`mailto:${profile.email}`}>Écrire un e-mail</a>
 				{profile.links.map((link) => (
 					<a class="button button--secondary" href={link.href}>
