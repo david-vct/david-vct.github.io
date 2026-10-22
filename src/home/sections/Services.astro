@@ -77,6 +77,16 @@ import SectionHeading from "../components/SectionHeading.astro"
 		margin-top: var(--space-9);
 	}
 
+	/* Phones: three columns, each as wide as its longest name, packed left. */
+	@media (max-width: 767px) {
+		.technologies {
+			display: grid;
+			grid-template-columns: repeat(3, auto);
+			justify-content: start;
+			column-gap: var(--space-4);
+		}
+	}
+
 	@media (min-width: 768px) {
 		.title {
 			font-size: var(--text-4xl);

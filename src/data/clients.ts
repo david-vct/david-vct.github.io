@@ -8,7 +8,7 @@ import type { Client } from "./types"
 export const clients: Client[] = [
 	{ name: "Capgemini", logo: capgemini },
 	{ name: "EDF", logo: edf },
-	{ name: "Groupe Adonis", logo: adonis },
 	{ name: "SEDRAP", logo: sedrap },
+	{ name: "Groupe Adonis", logo: adonis },
 	{ name: "PadelGo", logo: padelgo },
 ]

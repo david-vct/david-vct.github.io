@@ -31,6 +31,7 @@ export const serviceTechnologies = [
 	"React Native",
 	"Expo",
 	"Node.js",
-	"NestJS",
-	"PostgreSQL",
+	"MongoDB",
+	"Docker",
+	"Grafana",
 ]

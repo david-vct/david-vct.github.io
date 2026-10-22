@@ -14,12 +14,14 @@ const freelanceSince = experience[0].period.start.slice(0, 4)
 
 // Logos are drawn as masks, so only their shape is kept and the colour comes
 // from the theme. SVGs are used as they are, bitmaps are resized. Heights
-// shrink as logos widen, so they all weigh about the same.
+// shrink as logos widen, so they all weigh about the same. Some logos look
+// lighter than their size, they are enlarged by hand.
+const enlarged: Record<string, number> = { "Groupe Adonis": 1.12 }
 const logos = await Promise.all(
 	clients.map(async ({ name, logo }) => ({
 		name,
 		ratio: logo.width / logo.height,
-		height: Math.round(68 / Math.sqrt(logo.width / logo.height)),
+		height: Math.round(((enlarged[name] ?? 1) * 68) / Math.sqrt(logo.width / logo.height)),
 		src:
 			logo.format === "svg"
 				? logo.src
@@ -215,7 +217,7 @@ const logos = await Promise.all(
 		.clients li {
 			display: flex;
 			align-items: center;
-			min-height: 80px;
+			min-height: 56px;
 		}
 
 		.logo {
