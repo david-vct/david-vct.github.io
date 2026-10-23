@@ -16,6 +16,7 @@ import trik3r2 from "../assets/projects/trik3r-2.png"
 import verse1 from "../assets/projects/verse-1.webp"
 import verse2 from "../assets/projects/verse-2.webp"
 import vocabulary1 from "../assets/projects/vocabularytools-1.jpg"
+import ydotool1 from "../assets/projects/ydotool-rebind-1.png"
 import type { ProjectGroup } from "./types"
 
 const GITHUB = "https://github.com/david-vct"
@@ -175,6 +176,12 @@ export const projectGroups: ProjectGroup[] = [
           "Surcouche Bash de ydotool pour les claviers non-qwerty. Les entrées sont rebind vers le layout qwerty attendu par ydotool.",
         technologies: ["Bash", "Linux"],
         links: [{ label: "code", href: `${GITHUB}/ydotool-rebind` }],
+        figures: [
+          {
+            image: ydotool1,
+            caption: "Linux terminal executing ydotool subrutine.",
+          },
+        ],
       },
       {
         id: "vocabulary-tools",
