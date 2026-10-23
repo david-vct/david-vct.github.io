@@ -13,7 +13,17 @@
 	--color-accent: #ffe500;
 	--color-on-accent: #000000;
 
-	/* Nuances dérivées des couleurs ci-dessus, inutile d'y toucher. */
+	/* Nuances dérivées des couleurs ci-dessus, inutile d'y toucher.
+	 * --color-muted : texte secondaire, 66 % du texte sur le fond. */
 	--color-muted: color-mix(in srgb, var(--color-contrast) 66%, var(--color-base));
 	--color-rule: color-mix(in srgb, var(--color-contrast) 28%, var(--color-base));
+}
+
+/* Le même texte secondaire sur les surfaces claires. */
+.on-contrast {
+	--color-muted: color-mix(in srgb, var(--color-base) 66%, var(--color-contrast));
+}
+
+.on-accent {
+	--color-muted: color-mix(in srgb, var(--color-on-accent) 66%, var(--color-accent));
 }

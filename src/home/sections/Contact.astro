@@ -8,7 +8,7 @@ const linkedin = profile.links.find((link) => link.href.includes("linkedin.com")
 
 <section class="contact on-accent grain" id="contact">
 	<div class="container grid">
-		<h2 data-reveal>
+		<h2 class="title-1" data-reveal>
 			<span>Une idée en tête&nbsp;?</span>
 			<span>Parlons-en.</span>
 		</h2>
@@ -39,12 +39,7 @@ const linkedin = profile.links.find((link) => link.href.includes("linkedin.com")
 	}
 
 	.grid {
-		row-gap: var(--space-8);
-	}
-
-	h2 {
-		font-size: var(--text-section);
-		line-height: 0.92;
+		row-gap: var(--space-7);
 	}
 
 	/* "Une idée en tête ?" stays on one line: it is about 5.6em wide, so the
@@ -61,24 +56,22 @@ const linkedin = profile.links.find((link) => link.href.includes("linkedin.com")
 
 	.body {
 		display: grid;
-		gap: var(--space-7);
+		gap: var(--space-6);
 		justify-items: start;
 		align-content: end;
 	}
 
 	.lead {
 		max-width: 30rem;
-		font-size: var(--text-lg);
-		line-height: 1.36;
 	}
 
 	.email {
 		position: relative;
 		z-index: 0;
 		display: inline-block;
-		font-size: clamp(var(--text-lg), 1rem + 2vw, var(--text-2xl));
-		font-stretch: 115%;
+		font-size: var(--step-2);
 		font-weight: 600;
+		letter-spacing: var(--tracking-title);
 		text-decoration: none;
 		overflow-wrap: anywhere;
 	}

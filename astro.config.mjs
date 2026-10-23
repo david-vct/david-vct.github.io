@@ -28,17 +28,34 @@ export default defineConfig({
 		},
 		{
 			provider: fontProviders.local(),
-			name: "Archivo",
+			name: "Geist",
 			cssVariable: "--font-sans",
 			fallbacks: ["Arial", "sans-serif"],
 			options: {
 				variants: [
 					{
 						src: [
-							"./node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2",
+							"./node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2",
 						],
 						weight: "100 900",
-						stretch: "62% 125%",
+						style: "normal",
+						unicodeRange: [latin],
+					},
+				],
+			},
+		},
+		{
+			provider: fontProviders.local(),
+			name: "Geist Mono",
+			cssVariable: "--font-mono",
+			fallbacks: ["Courier New", "monospace"],
+			options: {
+				variants: [
+					{
+						src: [
+							"./node_modules/@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2",
+						],
+						weight: "100 900",
 						style: "normal",
 						unicodeRange: [latin],
 					},

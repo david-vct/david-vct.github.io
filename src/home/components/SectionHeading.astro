@@ -15,7 +15,7 @@ const hasIntro = Astro.slots.has("default")
 ---
 
 <div class="heading grid">
-	<h2 data-reveal>
+	<h2 class="title-1" data-reveal>
 		<span class="title">
 			{title}
 			<Scribble class="underline" shape={underlines[stroke % underlines.length]} weight="0.045em" />
@@ -23,7 +23,7 @@ const hasIntro = Astro.slots.has("default")
 	</h2>
 	{
 		hasIntro && (
-			<div class="intro" data-reveal style="--delay: 0.12s">
+			<div class="intro lead muted" data-reveal style="--delay: 0.12s">
 				<slot />
 			</div>
 		)
@@ -33,12 +33,7 @@ const hasIntro = Astro.slots.has("default")
 <style>
 	.heading {
 		row-gap: var(--space-6);
-		margin-bottom: var(--space-9);
-	}
-
-	h2 {
-		font-size: var(--text-section);
-		line-height: 0.92;
+		margin-bottom: var(--space-8);
 	}
 
 	/* Own stacking context, so the underline can sit behind the letters
@@ -62,8 +57,6 @@ const hasIntro = Astro.slots.has("default")
 
 	.intro {
 		max-width: 34rem;
-		color: var(--color-muted);
-		font-size: var(--text-md);
 	}
 
 	/* The introduction only shows beside the title: once they would stack, it
@@ -81,7 +74,7 @@ const hasIntro = Astro.slots.has("default")
 	@media (min-width: 1024px) {
 		.heading {
 			align-items: end;
-			margin-bottom: var(--space-10);
+			margin-bottom: var(--space-9);
 		}
 
 		h2 {
@@ -90,8 +83,6 @@ const hasIntro = Astro.slots.has("default")
 
 		.intro {
 			grid-column: 9 / span 4;
-			font-size: var(--text-lg);
-			line-height: 1.45;
 		}
 	}
 </style>

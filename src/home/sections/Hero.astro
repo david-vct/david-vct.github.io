@@ -12,7 +12,7 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 <section class="hero container grid" id="top">
 	<p class="role label">
 		<span>Développeur web et mobile</span>
-		<span class="role-detail">Freelance · {city}</span>
+		<span class="muted">Freelance · {city}</span>
 	</p>
 
 	<h1 class="name">
@@ -59,28 +59,25 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		min-height: 100svh;
 		align-content: center;
 		row-gap: var(--space-6);
-		padding-top: calc(var(--header-height) + var(--space-8));
-		padding-bottom: var(--space-9);
+		padding-top: calc(var(--header-height) + var(--space-7));
+		padding-bottom: var(--space-8);
 	}
 
 	.role > span {
 		display: block;
 	}
 
-	.role-detail {
-		color: var(--color-muted);
-	}
-
 	/* The name overlaps the portrait: it lets the pointer through, so the
 	 * portrait still reacts underneath. A soft shadow keeps it legible over
-	 * the light parts of the photo. */
+	 * the light parts of the photo. Its lines nest into each other, tighter
+	 * than the other display titles. */
 	.name {
 		position: relative;
 		z-index: 1;
 		pointer-events: none;
-		font-size: var(--text-hero);
+		font-size: var(--step-11);
 		line-height: 0.8;
-		letter-spacing: -0.02em;
+		letter-spacing: var(--tracking-display);
 		text-shadow: 0 0.02em 0.18em color-mix(in srgb, var(--color-base) 45%, transparent);
 	}
 
@@ -143,11 +140,12 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		filter: grayscale(0) contrast(1);
 	}
 
+	/* The tagline: a lead set at title size. */
 	.lead {
 		max-width: 22ch;
 		margin-bottom: var(--space-6);
-		font-size: var(--text-xl);
-		line-height: 1.25;
+		font-size: var(--step-3);
+		line-height: var(--leading-title);
 	}
 
 	/* Phones: tagline, name and portrait centred. The name shrinks to its
@@ -170,13 +168,7 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		}
 
 		.portrait {
-			margin-top: calc(var(--space-9) * -1);
-		}
-	}
-
-	@media (min-width: 768px) {
-		.lead {
-			font-size: var(--text-2xl);
+			margin-top: calc(var(--space-8) * -1);
 		}
 	}
 
@@ -210,11 +202,6 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		.pitch {
 			grid-column: 1 / span 6;
 			grid-row: 3;
-		}
-
-		.lead {
-			font-size: var(--text-3xl);
-			line-height: 1.19;
 		}
 	}
 

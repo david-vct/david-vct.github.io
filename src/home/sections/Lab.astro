@@ -35,11 +35,11 @@ const projects = projectGroups.find((group) => group.id === "personal")?.project
 							/>
 						)}
 						<div class="body">
-							<p class="label meta">{formatPeriod(project.period)}</p>
-							<h3>{project.title}</h3>
+							<p class="label muted">{formatPeriod(project.period)}</p>
+							<h3 class="title-4">{project.title}</h3>
 							<p class="label">{project.kind}</p>
 							<p class="description">{project.description}</p>
-							<ul class="technologies label meta">
+							<ul class="technologies label muted">
 								{project.technologies.map((technology) => <li>{technology}</li>)}
 							</ul>
 							{project.links && (
@@ -92,25 +92,14 @@ const projects = projectGroups.find((group) => group.id === "personal")?.project
 		padding: var(--space-5);
 	}
 
-	h3 {
-		font-size: var(--text-2xl);
-		line-height: 1.05;
-	}
-
-	.meta {
-		color: color-mix(in srgb, var(--color-base) 66%, var(--color-contrast));
-	}
-
 	.description {
 		margin-top: var(--space-2);
-		font-size: var(--text-base);
 	}
 
 	.technologies {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-1) var(--space-4);
-		font-size: var(--text-xs);
 	}
 
 	.buttons {
@@ -156,12 +145,9 @@ const projects = projectGroups.find((group) => group.id === "personal")?.project
 			padding: var(--space-6) var(--space-6) var(--space-6) 0;
 		}
 
+		/* The featured project takes the next title level. */
 		.tile--wide h3 {
-			font-size: var(--text-4xl);
-		}
-
-		.tile--wide .description {
-			font-size: var(--text-md);
+			font-size: var(--step-5);
 		}
 	}
 </style>

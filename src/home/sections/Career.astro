@@ -32,7 +32,7 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 									<path d={dot.d} />
 								</svg>
 								<p class="label muted">{formatPeriod(job.period)}</p>
-								<h4>{job.role}</h4>
+								<h4 class="title-4">{job.role}</h4>
 								<p class="label">{where(job.organization, job.contract.toLowerCase(), job.location)}</p>
 								<ul class="items">
 									{job.items.map((item) => <li>{item}</li>)}
@@ -52,7 +52,7 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 						education.map((study) => (
 							<li>
 								<p class="label muted">{formatPeriod(study.period)}</p>
-								<h4>{study.degree}</h4>
+								<h4 class="title-5">{study.degree}</h4>
 								<p class="label">{where(study.field, study.institution)}</p>
 							</li>
 						))
@@ -80,18 +80,13 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 
 <style>
 	.columns {
-		row-gap: var(--space-10);
+		row-gap: var(--space-9);
 	}
 
 	h3 {
 		margin-bottom: var(--space-6);
-		padding-top: var(--space-4);
+		padding-top: var(--space-5);
 		border-top: var(--rule-thick) solid var(--color-contrast);
-	}
-
-	h4 {
-		font-size: var(--text-xl);
-		line-height: 1.1;
 	}
 
 	.timeline {
@@ -114,14 +109,14 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 
 	ol {
 		display: grid;
-		gap: var(--space-9);
+		gap: var(--space-8);
 	}
 
 	.entry {
 		position: relative;
 		display: grid;
 		gap: var(--space-2);
-		padding-left: var(--space-9);
+		padding-left: var(--space-8);
 	}
 
 	.dot {
@@ -142,16 +137,12 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 
 	.side {
 		display: grid;
-		gap: var(--space-9);
+		gap: var(--space-8);
 		align-content: start;
 	}
 
 	.studies {
 		gap: var(--space-5);
-	}
-
-	.studies h4 {
-		font-size: var(--text-lg);
 	}
 
 	.skills {
@@ -162,13 +153,7 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 	/* Phones: a narrower indent leaves more room to the text of each entry. */
 	@media (max-width: 767px) {
 		.entry {
-			padding-left: var(--space-8);
-		}
-	}
-
-	@media (min-width: 768px) {
-		h4 {
-			font-size: var(--text-2xl);
+			padding-left: var(--space-7);
 		}
 	}
 

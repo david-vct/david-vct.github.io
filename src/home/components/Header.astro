@@ -7,12 +7,12 @@ import { navigation } from "../navigation"
 
 <header class="header">
 	<div class="container header-inner">
-		<a class="name" href="#top">
+		<a class="name title-5" href="#top">
 			<Image class="icon" src={icon} alt="" width={32} height={32} densities={[1, 2]} loading="eager" />
 			{profile.name}
 		</a>
 		<nav aria-label="Sections de la page">
-			<ul>
+			<ul class="label">
 				{
 					navigation.map((item) => (
 						<li>
@@ -46,9 +46,6 @@ import { navigation } from "../navigation"
 		align-items: center;
 		gap: var(--space-3);
 		margin-right: auto;
-		font-family: var(--font-serif);
-		font-size: var(--text-lg);
-		line-height: 1;
 		text-decoration: none;
 	}
 
@@ -67,9 +64,6 @@ import { navigation } from "../navigation"
 	}
 
 	nav a {
-		font-size: var(--text-sm);
-		font-stretch: 125%;
-		font-weight: 500;
 		text-decoration: none;
 	}
 
