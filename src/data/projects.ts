@@ -44,7 +44,7 @@ export const projectGroups: ProjectGroup[] = [
           },
           {
             image: verse2,
-            caption: "Bibliothèque : œuvres épinglées, listes et collections.",
+            caption: "Bibliothèque, œuvres épinglées et collections.",
           },
         ],
       },
@@ -87,8 +87,7 @@ export const projectGroups: ProjectGroup[] = [
         figures: [
           {
             image: padelgoManager1,
-            caption:
-              "Application de gestion du club : actions rapides et terrains.",
+            caption: "Application de gestion du club.",
           },
           {
             image: padelgoManager2,
