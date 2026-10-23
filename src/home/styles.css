@@ -234,20 +234,21 @@ a:hover {
  *
  *   .title-1  step 9   section titles
  *   .title-2  step 7   project names
- *   .title-3  step 5   statements, service names, featured project
+ *   .title-3  step 5   statements, service names, groups of a section
  *   .title-4  step 3   cards, job titles
- *   .title-5  step 1   small titles, the name in the header
  *   .lead     step 1   introductions and descriptions, Geist
  *   (body)    step 0   Geist, regular
- *   .label    step -1  dates, kinds, technologies, captions, Geist Mono
+ *   .label    step -1  dates, technologies, captions, Geist Mono
  *
- * The hero name (step 11) and tagline (step 3) are set in Hero.astro. */
+ * Instrument Serif is a display face: its hairlines fade below step 3, so a
+ * smaller title is set in Geist. A group of a section sits under a thick
+ * rule. The hero name (step 11) and tagline (step 3) are set in Hero.astro,
+ * the name in the header, a wordmark, in Header.astro. */
 
 .title-1,
 .title-2,
 .title-3,
-.title-4,
-.title-5 {
+.title-4 {
 	font-family: var(--font-serif);
 	font-weight: 400;
 	line-height: var(--leading-title);
@@ -277,10 +278,6 @@ a:hover {
 
 .title-4 {
 	font-size: var(--step-3);
-}
-
-.title-5 {
-	font-size: var(--step-1);
 }
 
 .lead {

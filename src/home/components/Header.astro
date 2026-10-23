@@ -7,7 +7,7 @@ import { navigation } from "../navigation"
 
 <header class="header">
 	<div class="container header-inner">
-		<a class="name title-5" href="#top">
+		<a class="name" href="#top">
 			<Image class="icon" src={icon} alt="" width={32} height={32} densities={[1, 2]} loading="eager" />
 			{profile.name}
 		</a>
@@ -46,6 +46,9 @@ import { navigation } from "../navigation"
 		align-items: center;
 		gap: var(--space-3);
 		margin-right: auto;
+		font-family: var(--font-serif);
+		font-size: var(--step-1);
+		line-height: 1;
 		text-decoration: none;
 	}
 

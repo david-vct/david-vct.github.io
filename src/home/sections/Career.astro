@@ -19,7 +19,7 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 
 	<div class="grid columns">
 		<div class="experience">
-			<h3 class="label muted">Expérience</h3>
+			<h3 class="title-3">Expérience</h3>
 			<div class="timeline">
 				<div class="line" data-reveal>
 					<Scribble shape={careerLine} weight="3px" stretch />
@@ -46,14 +46,14 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 
 		<div class="side">
 			<div data-reveal>
-				<h3 class="label muted">Formation</h3>
-				<ol class="studies">
+				<h3 class="title-3">Formation</h3>
+				<ol class="list">
 					{
 						education.map((study) => (
 							<li>
 								<p class="label muted">{formatPeriod(study.period)}</p>
-								<h4 class="title-5">{study.degree}</h4>
-								<p class="label">{where(study.field, study.institution)}</p>
+								<p>{study.degree}</p>
+								<p class="muted">{where(study.field, study.institution)}</p>
 							</li>
 						))
 					}
@@ -61,8 +61,8 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 			</div>
 
 			<div data-reveal>
-				<h3 class="label muted">Compétences</h3>
-				<dl class="skills">
+				<h3 class="title-3">Compétences</h3>
+				<dl class="list">
 					{
 						skills.map((group) => (
 							<div>
@@ -141,13 +141,10 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 		align-content: start;
 	}
 
-	.studies {
-		gap: var(--space-5);
-	}
-
-	.skills {
+	/* Formation and skills: a label on its text, as the facts of About. */
+	.list {
 		display: grid;
-		gap: var(--space-4);
+		gap: var(--space-5);
 	}
 
 	/* Phones: a narrower indent leaves more room to the text of each entry. */
