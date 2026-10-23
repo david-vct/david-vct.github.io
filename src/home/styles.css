@@ -242,8 +242,9 @@ a:hover {
  *
  * Instrument Serif is a display face: its hairlines fade below step 3, so a
  * smaller title is set in Geist. A group of a section sits under a thick
- * rule. The hero name (step 11) and tagline (step 3) are set in Hero.astro,
- * the name in the header, a wordmark, in Header.astro. */
+ * rule. The hero headline (sized to the page, off the scale) and tagline
+ * (step 3) are set in Hero.astro, the name in the header, a wordmark, in
+ * Header.astro. */
 
 .title-1,
 .title-2,
