@@ -14,22 +14,33 @@ interface Props {
 
 const { figures, project, span } = Astro.props
 const ratioSum = figures.reduce((sum, { image }) => sum + image.width / image.height, 0)
+
+// On small screens, tall screenshots span 64vw and wide ones 86vw. The strip
+// takes the height of the tallest one, so a wide screenshot next to a tall
+// one grows to match it and the strip stays aligned.
+const mobileWidth = (ratio: number) => (ratio < 1 ? 64 : 86)
+const mobileHeight = Math.max(
+	...figures.map(({ image }) => {
+		const ratio = image.width / image.height
+		return mobileWidth(ratio) / ratio
+	}),
+)
 ---
 
-<div class="figures" style={`--ratio-sum: ${ratioSum}`}>
+<div class="figures" style={`--ratio-sum: ${ratioSum}; --mobile-height: ${mobileHeight}vw`}>
 	{
 		figures.map(({ image, caption }) => {
 			const ratio = image.width / image.height
 			const share = ratio / ratioSum
 			const isAnimated = image.format === "gif"
-			const mobileWidth = ratio < 1 ? 64 : 86
+			const width = Math.ceil(ratio * mobileHeight)
 			return (
-				<figure style={`--ratio: ${ratio}; --mobile-width: ${mobileWidth}vw`}>
+				<figure style={`--ratio: ${ratio}`}>
 					<Image
 						src={image}
 						alt={`${project} : ${caption}`}
 						widths={isAnimated ? undefined : [360, 720, 1080, 1440].filter((width) => width <= image.width)}
-						sizes={`(min-width: 1024px) ${Math.ceil(share * span)}vw, ${mobileWidth}vw`}
+						sizes={`(min-width: 1024px) ${Math.ceil(share * span)}vw, ${width}vw`}
 						format={isAnimated ? "gif" : "webp"}
 					/>
 					<figcaption class="label muted">{caption}</figcaption>
@@ -53,7 +64,7 @@ const ratioSum = figures.reduce((sum, { image }) => sum + image.width / image.he
 
 	figure {
 		flex: none;
-		width: min(var(--mobile-width), var(--ratio) * 60svh);
+		width: calc(var(--ratio) * min(var(--mobile-height), 60svh));
 		scroll-snap-align: start;
 	}
 
