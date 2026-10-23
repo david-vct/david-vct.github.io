@@ -5,11 +5,15 @@ import { profile } from "../../data/profile"
 import { accentBlob, portraitBlob } from "../shapes"
 
 const [firstName, ...lastNames] = profile.name.split(" ")
+const [city] = profile.location.split(",")
 const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Number)
 ---
 
 <section class="hero container grid" id="top">
-	<p class="role label">Ingénieur logiciel indépendant</p>
+	<p class="role label">
+		<span>Développeur web et mobile</span>
+		<span class="role-detail">Freelance · {city}</span>
+	</p>
 
 	<h1 class="name">
 		<span class="line"><span>{firstName}</span></span>{" "}
@@ -59,8 +63,17 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		padding-bottom: var(--space-9);
 	}
 
+	.role > span {
+		display: block;
+	}
+
+	.role-detail {
+		color: var(--color-muted);
+	}
+
 	/* The name overlaps the portrait: it lets the pointer through, so the
-	 * portrait still reacts underneath. */
+	 * portrait still reacts underneath. A soft shadow keeps it legible over
+	 * the light parts of the photo. */
 	.name {
 		position: relative;
 		z-index: 1;
@@ -68,6 +81,7 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		font-size: var(--text-hero);
 		line-height: 0.8;
 		letter-spacing: -0.02em;
+		text-shadow: 0 0.02em 0.18em color-mix(in srgb, var(--color-base) 45%, transparent);
 	}
 
 	/* Each line is a window the word rises through on load. */
@@ -136,12 +150,27 @@ const [blobWidth, blobHeight] = portraitBlob.viewBox.split(" ").slice(2).map(Num
 		line-height: 1.25;
 	}
 
-	/* Phones: name and portrait centred. The name shrinks to its widest line,
-	 * so the second one keeps its offset. */
+	/* Phones: tagline, name and portrait centred. The name shrinks to its
+	 * widest line, so the second one keeps its offset. It fills the width
+	 * ("Vicente" plus its offset is about 2.9em wide) and its last line runs
+	 * slightly over the top of the portrait. */
 	@media (max-width: 767px) {
+		.role {
+			justify-self: center;
+			text-align: center;
+		}
+
 		.name,
 		.portrait {
 			justify-self: center;
+		}
+
+		.name {
+			font-size: calc((100vw - 2 * var(--gutter)) / 3);
+		}
+
+		.portrait {
+			margin-top: calc(var(--space-9) * -1);
 		}
 	}
 
