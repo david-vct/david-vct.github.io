@@ -21,7 +21,7 @@ const formatDate = (value: DateValue) => {
 }
 
 /**
- * "sept. 2022 – août 2023", "avr.–mai 2026", "juil. 2024", "2021 – 2023",
+ * "sept. 2022 – août 2023", "avr. – mai 2026", "juil. 2024", "2021 – 2023",
  * "nov. 2024 – aujourd’hui".
  */
 export const formatPeriod = ({ start, end }: Period): string => {
@@ -31,7 +31,7 @@ export const formatPeriod = ({ start, end }: Period): string => {
 	const from = parse(start)
 	const to = parse(end)
 	if (from.month && to.month && from.year === to.year) {
-		return `${monthName(from.month)}–${monthName(to.month)}\u00a0${to.year}`
+		return `${monthName(from.month)} – ${monthName(to.month)}\u00a0${to.year}`
 	}
 	return `${formatDate(start)} – ${formatDate(end)}`
 }

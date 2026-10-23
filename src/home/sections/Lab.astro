@@ -37,7 +37,6 @@ const projects = projectGroups.find((group) => group.id === "personal")?.project
 						<div class="body">
 							<p class="label muted">{formatPeriod(project.period)}</p>
 							<h3 class="title-4">{project.title}</h3>
-							<p class="label">{project.kind}</p>
 							<p class="description">{project.description}</p>
 							<ul class="technologies label muted">
 								{project.technologies.map((technology) => <li>{technology}</li>)}
