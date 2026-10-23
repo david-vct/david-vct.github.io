@@ -2,15 +2,20 @@
 import { profile } from "../../data/profile"
 import Scribble from "../components/Scribble.astro"
 import { underlines } from "../shapes"
+
+const linkedin = profile.links.find((link) => link.href.includes("linkedin.com"))
 ---
 
 <section class="contact on-accent grain" id="contact">
 	<div class="container grid">
-		<h2 data-reveal>Un projet en tête&nbsp;? Parlons-en.</h2>
+		<h2 data-reveal>
+			<span>Une idée en tête&nbsp;?</span>
+			<span>Parlons-en.</span>
+		</h2>
 		<div class="body" data-reveal style="--delay: 0.15s">
 			<p class="lead">
-				Un nouveau produit à lancer, une équipe à renforcer ou une idée à mettre à l’épreuve :
-				écrivez-moi, on en discute.
+				Un échange sans engagement nous permettra de comprendre vos besoins
+                et de définir ensemble les prochaines étapes.
 			</p>
 			<a class="email" href={`mailto:${profile.email}`}>
 				{profile.email}
@@ -18,11 +23,11 @@ import { underlines } from "../shapes"
 			</a>
 			<div class="buttons buttons--stack">
 				<a class="button" href={`mailto:${profile.email}`}>Écrire un e-mail</a>
-				{profile.links.map((link) => (
-					<a class="button button--secondary" href={link.href}>
-						{link.label}
+				{linkedin && (
+					<a class="button button--secondary" href={linkedin.href}>
+						Écrire sur LinkedIn
 					</a>
-				))}
+				)}
 			</div>
 		</div>
 	</div>
@@ -40,6 +45,18 @@ import { underlines } from "../shapes"
 	h2 {
 		font-size: var(--text-section);
 		line-height: 0.92;
+	}
+
+	/* "Une idée en tête ?" stays on one line: it is about 5.6em wide, so the
+	 * title shrinks below its usual size when the column is narrower. */
+	h2 {
+		container-type: inline-size;
+	}
+
+	h2 > span {
+		display: block;
+		font-size: min(1em, 16.5cqi);
+		white-space: nowrap;
 	}
 
 	.body {
@@ -81,6 +98,7 @@ import { underlines } from "../shapes"
 	@media (min-width: 1024px) {
 		h2 {
 			grid-column: 1 / span 8;
+			align-self: center;
 		}
 
 		.body {
