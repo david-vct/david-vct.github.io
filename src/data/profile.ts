@@ -5,6 +5,8 @@ export const profile = {
 	title: "Ingénieur logiciel, développement web et mobile",
 	location: "Toulouse, France",
 	email: "david.vct@proton.me",
+	/** One-page CV, compiled from cv-latex/cv.tex into public/ (npm run cv). */
+	cv: "/david-vicente-cv.pdf",
 	links: [
 		{ label: "github.com/david-vct", href: "https://github.com/david-vct" },
 		{

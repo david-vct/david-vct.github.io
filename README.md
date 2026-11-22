@@ -34,6 +34,8 @@ src/
 │   ├── components/     Composants de mise en page (entrée, section, figure…)
 │   └── sections/       Une section du CV par fichier
 └── pages/         Une page par fichier, l'URL suit le chemin
+
+cv-latex/cv.tex    CV professionnel d'une page en LaTeX, hors du site
 ```
 
 Le contenu (`src/data/`, `src/assets/`, `src/lib/dates.ts`) est indépendant de toute mise en forme et peut servir à n'importe quelle page. Ce qui touche à l'apparence est rangé avec la page qui l'utilise : le dossier `src/cv-academic/` ne sert qu'au CV académique, et sa feuille de style n'est chargée que sur cette page. Une nouvelle page avec un autre style aura son propre dossier, sur le même modèle, sans réutiliser les composants de `src/cv-academic/`.
@@ -73,6 +75,15 @@ Tout le contenu se trouve dans `src/data/`, séparé du rendu :
 - Les figures d'un travail sont en colonnes fixes (plus étroites avec `portrait: true`). Quand un travail mêle captures en portrait et en paysage, elles sont mises à hauteur égale.
 - Cliquer sur une figure l'agrandit par-dessus la page (seul JavaScript du site, dans `Lightbox.astro`) ; sans JavaScript, le lien ouvre l'image.
 - Mise en forme : police Libertinus Serif, titres de section en `#96322D`, liens en `#335C7A`, dates et libellés dans une colonne de marge à gauche. À l'écran, tout est agrandi de 20 % (`font-size: 120%` sur `html`) ; les points de rupture des media queries intègrent ce facteur (`52.8rem` = 44 × 1,2). Les espacements verticaux sont en `em` du texte, ce qui garde les proportions à l'impression.
+
+## CV LaTeX
+
+`cv-latex/cv.tex` est un CV d'une page mis en forme comme un article scientifique : classe `article` standard, Latin Modern, résumé et mots-clés, sections numérotées, réalisations en bibliographie citées dans le texte. Il est indépendant du site : son contenu est recopié de `src/data/` et doit être mis à jour à la main. La photo `cv-latex/portrait.jpg` est un recadrage 4:5 de `src/assets/portrait.png`.
+
+Le portfolio le propose en PDF (bouton de la section Parcours et lien du pied de page, ouverts dans un nouvel onglet) ; son chemin est `profile.cv` dans `src/data/profile.ts`.
+
+- `npm run cv` le compile avec pdfLaTeX et copie le résultat dans `public/david-vicente-cv.pdf`, le fichier servi par le site, à commiter : le déploiement ne compile pas le LaTeX. Il faut TeX Live et `latexmk`.
+- Il doit tenir sur une page : il est plein, toute ligne ajoutée doit en remplacer une autre (ou réduire les marges de `geometry`).
 
 ## Développement
 
