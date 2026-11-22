@@ -2,6 +2,7 @@
 import { education } from "../../data/education"
 import { experience } from "../../data/experience"
 import { skills } from "../../data/skills"
+import { profile } from "../../data/profile"
 import { formatPeriod } from "../../lib/dates"
 import Scribble from "../components/Scribble.astro"
 import SectionHeading from "../components/SectionHeading.astro"
@@ -74,6 +75,11 @@ const where = (...parts: (string | undefined)[]) => parts.filter(Boolean).join("
 				</dl>
 			</div>
 
+			<div data-reveal>
+				<a class="button button--secondary" href={profile.cv} target="_blank" rel="noopener">
+					Voir le CV<span class="visually-hidden"> (PDF, nouvel onglet)</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>
