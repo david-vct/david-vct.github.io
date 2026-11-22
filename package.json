@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro check && astro build",
-		"preview": "astro preview"
+		"preview": "astro preview",
+		"cv": "cd cv-latex && latexmk -pdf cv.tex && cp cv.pdf ../public/david-vicente-cv.pdf"
 	},
 	"dependencies": {
 		"@fontsource-variable/geist": "^5.3.0",
